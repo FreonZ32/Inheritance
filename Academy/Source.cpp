@@ -179,12 +179,12 @@ void main()
 	Human h("Montana", "Antonio", 35);
 	h.print();
 	
-	Teacher d("Walter", "Hartwell", 50, "Methamphimamine manufacture", "teacher", "Magistr", 24);
+	Teacher d("Hartwell", "Walter", 50, "Methamphimamine manufacture", "teacher", "Magistr", 24);
 	d.print();
 
 	Student s("Pinkman", "Jessy", 22, "Methamphimamine manufacture", "stydent", "WW_01", 93);
 	s.print();
 
-	Graduate f("Hank", "Schrader", 43, "criminalistics", "student", "DEA", 60, "How to find Heisenberg", "WalterHartwell");
+	Graduate f("Schrader", "Hank", 43, "criminalistics", "student", "DEA", 60, "How to find Heisenberg", "WalterHartwell");
 	f.print();
 }

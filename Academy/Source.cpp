@@ -32,7 +32,7 @@ public:
 	{
 		cout << "HDestructor:\t" << this << endl;
 	}
-	void print()const
+	virtual void print()const
 	{
 		cout << endl << last_name << " " << first_name << " " << age << " лет.\n";
 	}
@@ -173,12 +173,16 @@ public:
 	}
 };
 
+//#define INHERITANCE
+
 void main()
 {
 	setlocale(LC_ALL, "rus");
+
+#ifdef INHERITANCE
 	Human h("Montana", "Antonio", 35);
 	h.print();
-	
+
 	Teacher d("Hartwell", "Walter", 50, "Methamphimamine manufacture", "teacher", "Magistr", 24);
 	d.print();
 
@@ -187,4 +191,20 @@ void main()
 
 	Graduate f("Schrader", "Hank", 43, "criminalistics", "student", "DEA", 60, "How to find Heisenberg", "WalterHartwell");
 	f.print();
+#endif // INHERITANCE
+
+	Human* group[] =
+	{
+		new Student("Pinkman", "Jessy", 22, "Methamphimamine manufacture", "stydent", "WW_01", 93),
+		new Student("Vercetti", "Tomas", 30, "Cryminal", "stydent", "Vice", 90),
+		new	Teacher("Hartwell", "Walter", 50, "Methamphimamine manufacture", "teacher", "Magistr", 24),
+		new Teacher("Eistein", "Albert", 143, "Astronomy", "teacher", "God", 120),
+		new Graduate("Schrader", "Hank", 43, "criminalistics", "student", "DEA", 60, "How to find Heisenberg", "WalterHartwell")
+	};
+	for (int i = 0; i < sizeof(group)/sizeof(Human*); i++)
+	{
+		cout << endl;
+		group[i]->print();
+	}
+	cout << endl;
 }

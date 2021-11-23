@@ -143,6 +143,7 @@
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="Professional_area.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Stdafx.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="Teacher.cpp" />
   </ItemGroup>

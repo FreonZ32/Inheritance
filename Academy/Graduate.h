@@ -16,4 +16,5 @@ public:
 		const string& group, double rating, const string& thesis, const string& curator);
 	~Graduate();
 	void print()const;
+	void tofile()const;
 };

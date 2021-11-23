@@ -25,6 +25,7 @@ void main()
 	f.print();
 #endif // INHERITANCE
 
+	clear_file();
 	Human* group[] =
 	{
 		new Student("Pinkman", "Jessy", 22, "Methamphimamine manufacture", "stydent", "WW_01", 93),
@@ -37,7 +38,10 @@ void main()
 	{
 		cout << endl;
 		group[i]->print();
+		group[i]->tofile();
 	}
+	
+	
 	cout << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{

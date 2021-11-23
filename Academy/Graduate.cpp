@@ -35,3 +35,10 @@ void Graduate::print()const
 	Student::print();
 	cout << "Тема диплома: " << thesis << ", куратор: " << curator << endl;
 }
+void Graduate::tofile()const
+{
+	Student::tofile();
+	ofstream fout("File.txt", std::ios_base::app);
+	fout << "Тема диплома: " << thesis << ", куратор: " << curator << endl;
+	fout.close();
+}

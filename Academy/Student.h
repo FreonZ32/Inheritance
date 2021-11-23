@@ -17,4 +17,5 @@ public:
 	~Student();
 
 	void print()const;
+	void tofile()const;
 };

@@ -16,4 +16,5 @@ public:
 		const string& type_of_stydy, const string& academic_degree, const unsigned int experience);
 	~Teacher();
 	void print()const;
+	void tofile()const;
 };

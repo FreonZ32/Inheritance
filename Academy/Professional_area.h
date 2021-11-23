@@ -15,4 +15,5 @@ public:
 		const string& speciality, const string& type_of_stydy);
 	~Professional_area();
 	void print()const;
+	void tofile()const;
 };

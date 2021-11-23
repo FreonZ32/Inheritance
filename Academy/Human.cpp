@@ -40,3 +40,9 @@ void Human::print()const
 {
 	cout << endl << last_name << " " << first_name << " " << age << " лет.\n";
 }
+void Human::tofile()const
+{
+	ofstream fout("File.txt", std::ios_base::app);
+	fout << endl << last_name << " " << first_name << " " << age << " лет.\n";
+	fout.close();
+}

@@ -9,8 +9,8 @@
 
 //#define INHERITANCE
 //#define CREATE_AND_WRITE_IN_F
-#define SIMPLE_READING
-//#define DOWNLOAD_FROM_F_TO
+//#define SIMPLE_READING
+#define DOWNLOAD_FROM_F_TO
 
 void main()
 {

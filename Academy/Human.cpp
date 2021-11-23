@@ -38,7 +38,7 @@ Human::~Human()
 }
 void Human::print()const
 {
-	cout << endl << last_name << " " << first_name << " " << age << " כוע.\n";
+	cout << endl << "װָ: " << last_name << " " << first_name << " " << age << " כוע.\n";
 }
 void Human::tofile()const
 {

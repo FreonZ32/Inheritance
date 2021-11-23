@@ -36,7 +36,7 @@ Human::~Human()
 {
 	cout << "HDestructor:\t" << this << endl;
 }
-void Human::print()const
+void Human::print(ostream& os)const
 {
 	cout << endl << "ÔÈ: " << last_name << " " << first_name << " " << age << " ëåò.\n";
 }

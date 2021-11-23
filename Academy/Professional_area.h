@@ -14,6 +14,6 @@ public:
 	Professional_area(const string& last_name, const string& first_name, unsigned int age,
 		const string& speciality, const string& type_of_stydy);
 	~Professional_area();
-	void print()const;
+	void print(ostream& os)const;
 	void tofile()const;
 };

@@ -31,9 +31,9 @@ Student::~Student()
 	cout << "SDestructor:\t" << this << endl;
 }
 
-void Student::print()const
+void Student::print(ostream& os)const
 {
-	Professional_area::print();
+	Professional_area::print(os);
 	cout << "Группа: " << group << ", успеваемость: " << rating << endl;
 }
 void Student::tofile()const

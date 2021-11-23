@@ -16,6 +16,6 @@ public:
 
 	Human(const string& last_name, const string& first_name, unsigned int age);
 	virtual ~Human();
-	virtual void print()const;
+	virtual void print(ostream& os)const;
 	virtual void tofile()const;
 };

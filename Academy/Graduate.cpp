@@ -30,9 +30,9 @@ Graduate::~Graduate()
 {
 	cout << "SDestructor:\t" << this << endl;
 }
-void Graduate::print()const
+void Graduate::print(ostream& os)const
 {
-	Student::print();
+	Student::print(os);
 	cout << "Тема диплома: " << thesis << ", куратор: " << curator << endl;
 }
 void Graduate::tofile()const

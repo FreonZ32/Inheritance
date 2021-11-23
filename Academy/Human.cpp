@@ -46,7 +46,7 @@ void Human::tofile()const
 	fout /*<< "װָ: "*/ << last_name << " " << first_name << " " << age << /*" כוע;" <<*/ endl;
 	fout.close();
 }
-
+ 
 ostream& operator<<(ostream& os, const Human& obj)
 {
 	obj.print(os);

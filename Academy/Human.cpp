@@ -30,11 +30,11 @@ Human::Human(const string& last_name, const string& first_name, unsigned int age
 	set_last_name(last_name);
 	set_first_name(first_name);
 	set_age(age);
-	cout << "HConstrucror:\t" << this << endl;
+	//cout << "HConstrucror:\t" << this << endl;
 }
 Human::~Human()
 {
-	cout << "HDestructor:\t" << this << endl;
+	//cout << "HDestructor:\t" << this << endl;
 }
 void Human::print()const
 {
@@ -45,4 +45,9 @@ void Human::tofile()const
 	ofstream fout("File.txt", std::ios_base::app);
 	fout << "װָ: " << last_name << " " << first_name << " " << age << " כוע;" << endl;
 	fout.close();
+}
+
+ostream& operator<<(ostream& os, const Human& obj)
+{
+	return os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age() << " כוע.";
 }

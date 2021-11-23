@@ -24,11 +24,11 @@ Student::Student(const string& last_name, const string& first_name, unsigned int
 {
 	set_group(group);
 	set_rating(rating);
-	cout << "SConstructor:\t" << this << endl;
+	//cout << "SConstructor:\t" << this << endl;
 }
 Student::~Student()
 {
-	cout << "SDestructor:\t" << this << endl;
+	//cout << "SDestructor:\t" << this << endl;
 }
 
 void Student::print()const
@@ -42,4 +42,10 @@ void Student::tofile()const
 	ofstream fout("File.txt", std::ios_base::app);
 	fout << "Группа: " << group << ", успеваемость : " << rating << ";" << endl;
 	fout.close();
+}
+
+ostream& operator>>(ostream& os, const Student& obj)
+{
+	os << (Professional_area)obj;
+	return os << "Группа: " << obj.get_group()<< ", успеваемость: " << obj.get_rating() << ";";
 }

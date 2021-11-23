@@ -23,11 +23,11 @@ Teacher::Teacher(const string& last_name, const string& first_name, unsigned int
 {
 	set_academic_degree(academic_degree);
 	set_experience(experience);
-	cout << "TConstructor:\t" << this << endl;
+	//cout << "TConstructor:\t" << this << endl;
 }
 Teacher::~Teacher()
 {
-	cout << "TDestructor:\t" << this << endl;
+	//cout << "TDestructor:\t" << this << endl;
 }
 void Teacher::print()const
 {
@@ -40,4 +40,10 @@ void Teacher::tofile()const
 	ofstream fout("File.txt", std::ios_base::app);
 	fout << "Ученая степень: " << academic_degree << ", стаж: " << experience << ";" << endl;
 	fout.close();
+}
+
+ostream& operator<<(ostream& os, const Teacher& obj)
+{
+	os << (Professional_area)obj;
+	return os << "Ученая степень: " << obj.get_academic_degree() << ", стаж: " << obj.get_experience() << ";";
 }

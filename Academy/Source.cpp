@@ -36,18 +36,24 @@ void main()
 	};
 	for (int i = 0; i < sizeof(group)/sizeof(Human*); i++)
 	{
+		//cout << typeid(*group[i]).name() << endl;
+		if (typeid(*group[i]) == typeid(Professional_area))cout <<*dynamic_cast<Professional_area*>(group[i]) << endl;
+		if (typeid(*group[i]) == typeid(Student))cout << *dynamic_cast<Student*>(group[i]) << endl;
+		if (typeid(*group[i]) == typeid(Teacher))cout << *dynamic_cast<Teacher*>(group[i]) << endl;
+		if (typeid(*group[i]) == typeid(Graduate))cout << *dynamic_cast<Graduate*>(group[i]) << endl;
 		cout << endl;
-		group[i]->print();
+		//group[i]->print();
 		group[i]->tofile();
 		ofstream fout("File.txt", std::ios_base::app);
 		fout << endl;
 		fout.close();
 	}
-	system("start notepad File.txt");
+	//system("start notepad File.txt");
 	cout << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{
 		delete[] group[i];
+
 	}
 
 }

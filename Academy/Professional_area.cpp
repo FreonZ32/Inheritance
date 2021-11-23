@@ -31,12 +31,12 @@ Professional_area::~Professional_area()
 ostream& Professional_area::print(ostream& os)const
 {
 	Human::print(os);
-	return os << "Специальность: " << speciality << ", тип обучения: " << type_of_stydy << endl;
+	return os << /*"Специальность: "*/" " << speciality << /*", тип обучения: "*/" " << type_of_stydy << endl;
 }
 void Professional_area::tofile()const
 {
 	Human::tofile();
 	ofstream fout("File.txt", std::ios_base::app);	//Создаем и открывае поток
-	fout << "Специальность: " << speciality << ", тип обучения: " << type_of_stydy << ";" << endl;
+	fout << /* "Специальность: "*/ " " << speciality << /*", тип обучения: "*/ " " << type_of_stydy << ";" << endl;
 	fout.close();
 }

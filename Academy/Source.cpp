@@ -48,8 +48,15 @@ void main()
 		/*ofstream fout("File.txt", std::ios_base::app);
 		fout << endl;
 		fout.close();*/
+		ofstream fout("group.txt");
+		for (int i = 0; i < sizeof(group)/sizeof(group[0]); i++)
+		{
+			fout << *group[i] << endl;
+		}
+		fout.close();
 	}
 	//system("start notepad File.txt");
+	system("start notepad group.txt");
 	cout << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{

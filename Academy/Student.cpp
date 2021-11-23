@@ -34,12 +34,12 @@ Student::~Student()
 ostream& Student::print(ostream& os)const
 {
 	Professional_area::print(os);
-	return os << "Группа: " << group << ", успеваемость: " << rating << endl;
+	return os << /*"Группа: "*/" " << group << /*", успеваемость: "*/" " << rating << endl;
 }
 void Student::tofile()const
 {
 	Professional_area::tofile();
 	ofstream fout("File.txt", std::ios_base::app);
-	fout << "Группа: " << group << ", успеваемость: " << rating << ";" << endl;
+	fout << /*"Группа: "*/" " << group << /*", успеваемость: "*/" " << rating << ";" << endl;
 	fout.close();
 }

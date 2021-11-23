@@ -33,12 +33,12 @@ Graduate::~Graduate()
 ostream& Graduate::print(ostream& os)const
 {
 	Student::print(os);
-	return os << "Тема диплома: " << thesis << ", куратор: " << curator << endl;
+	return os << /*"Тема диплома: "*/" " << thesis << /*", куратор: "*/" " << curator << endl;
 }
 void Graduate::tofile()const
 {
 	Student::tofile();
 	ofstream fout("File.txt", std::ios_base::app);
-	fout << "Тема диплома: " << thesis << ", куратор: " << curator << ";" << endl;
+	fout << /*"Тема диплома: "*/" " << thesis << /*", куратор: "*/" " << curator << ";" << endl;
 	fout.close();
 }

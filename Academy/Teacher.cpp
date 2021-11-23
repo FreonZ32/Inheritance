@@ -32,12 +32,12 @@ Teacher::~Teacher()
 ostream& Teacher::print(ostream& os)const
 {
 	Professional_area::print(os);
-	return os << "Ученая степень: " << academic_degree << ", стаж: " << experience << endl;
+	return os << /*"Ученая степень: "*/" " << academic_degree << /*", стаж: "*/" " << experience << endl;
 }
 void Teacher::tofile()const
 {
 	Professional_area::tofile();
 	ofstream fout("File.txt", std::ios_base::app);
-	fout << "Ученая степень: " << academic_degree << ", стаж: " << experience << ";" << endl;
+	fout << /*"Ученая степень: "*/" " << academic_degree << /*", стаж: "*/" " << experience << ";" << endl;
 	fout.close();
 }

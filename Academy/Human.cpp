@@ -38,12 +38,12 @@ Human::~Human()
 }
 ostream& Human::print(ostream& os)const
 {
-	return os << endl << "װָ: " << last_name << " " << first_name << " " << age << " כוע.\n";
+	return os /*<< endl << "װָ: "*/ << last_name << " " << first_name << " " << age << /*" כוע.\n" <<*/ endl;
 }
 void Human::tofile()const
 {
 	ofstream fout("File.txt", std::ios_base::app);
-	fout << "װָ: " << last_name << " " << first_name << " " << age << " כוע;" << endl;
+	fout /*<< "װָ: "*/ << last_name << " " << first_name << " " << age << /*" כוע;" <<*/ endl;
 	fout.close();
 }
 

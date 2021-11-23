@@ -36,13 +36,19 @@ Human::~Human()
 {
 	cout << "HDestructor:\t" << this << endl;
 }
-void Human::print(ostream& os)const
+ostream& Human::print(ostream& os)const
 {
-	cout << endl << "ÔÈ: " << last_name << " " << first_name << " " << age << " ëåò.\n";
+	return os << endl << "ÔÈ: " << last_name << " " << first_name << " " << age << " ëåò.\n";
 }
 void Human::tofile()const
 {
 	ofstream fout("File.txt", std::ios_base::app);
 	fout << "ÔÈ: " << last_name << " " << first_name << " " << age << " ëåò;" << endl;
 	fout.close();
+}
+
+ostream& operator<<(ostream& os, const Human& obj)
+{
+	obj.print(os);
+	return os;
 }

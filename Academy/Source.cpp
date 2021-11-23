@@ -43,12 +43,13 @@ void main()
 	{
 		cout << endl;
 		//group[i]->print();
-		group[i]->tofile();
-		ofstream fout("File.txt", std::ios_base::app);
+		cout << *group[i];
+		//group[i]->tofile();
+		/*ofstream fout("File.txt", std::ios_base::app);
 		fout << endl;
-		fout.close();
+		fout.close();*/
 	}
-	system("start notepad File.txt");
+	//system("start notepad File.txt");
 	cout << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{

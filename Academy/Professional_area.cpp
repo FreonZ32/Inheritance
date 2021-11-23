@@ -28,10 +28,10 @@ Professional_area::~Professional_area()
 {
 	cout << "PaDestructor:\t" << this << endl;
 }
-void Professional_area::print(ostream& os)const
+ostream& Professional_area::print(ostream& os)const
 {
 	Human::print(os);
-	cout << "Специальность: " << speciality << ", тип обучения: " << type_of_stydy << endl;
+	return os << "Специальность: " << speciality << ", тип обучения: " << type_of_stydy << endl;
 }
 void Professional_area::tofile()const
 {

@@ -29,10 +29,10 @@ Teacher::~Teacher()
 {
 	cout << "TDestructor:\t" << this << endl;
 }
-void Teacher::print(ostream& os)const
+ostream& Teacher::print(ostream& os)const
 {
 	Professional_area::print(os);
-	cout << "Ученая степень: " << academic_degree << ", стаж: " << experience << endl;
+	return os << "Ученая степень: " << academic_degree << ", стаж: " << experience << endl;
 }
 void Teacher::tofile()const
 {

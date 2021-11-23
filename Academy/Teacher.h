@@ -15,6 +15,6 @@ public:
 	Teacher(const string& last_name, const string& first_name, unsigned int age, const string& speciality,
 		const string& type_of_stydy, const string& academic_degree, const unsigned int experience);
 	~Teacher();
-	void print(ostream& os)const;
+	ostream& print(ostream& os)const;
 	void tofile()const;
 };

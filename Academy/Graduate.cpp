@@ -30,10 +30,10 @@ Graduate::~Graduate()
 {
 	cout << "SDestructor:\t" << this << endl;
 }
-void Graduate::print(ostream& os)const
+ostream& Graduate::print(ostream& os)const
 {
 	Student::print(os);
-	cout << "Тема диплома: " << thesis << ", куратор: " << curator << endl;
+	return os << "Тема диплома: " << thesis << ", куратор: " << curator << endl;
 }
 void Graduate::tofile()const
 {

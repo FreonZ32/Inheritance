@@ -15,6 +15,6 @@ public:
 		const string& speciality, const string& type_of_stydy,
 		const string& group, double rating, const string& thesis, const string& curator);
 	~Graduate();
-	void print(ostream& os)const;
+	ostream& print(ostream& os)const;
 	void tofile()const;
 };

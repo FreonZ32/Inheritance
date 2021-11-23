@@ -16,6 +16,6 @@ public:
 		const string& group, double rating);
 	~Student();
 
-	void print(ostream& os)const;
+	ostream& print(ostream& os)const;
 	void tofile()const;
 };

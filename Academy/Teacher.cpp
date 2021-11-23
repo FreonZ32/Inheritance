@@ -38,6 +38,6 @@ void Teacher::tofile()const
 {
 	Professional_area::tofile();
 	ofstream fout("File.txt", std::ios_base::app);
-	fout << "Ученая степень: " << academic_degree << ", стаж: " << experience << endl;
+	fout << "Ученая степень: " << academic_degree << ", стаж: " << experience << ";" << endl;
 	fout.close();
 }

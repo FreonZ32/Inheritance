@@ -43,6 +43,6 @@ void Human::print()const
 void Human::tofile()const
 {
 	ofstream fout("File.txt", std::ios_base::app);
-	fout << endl << last_name << " " << first_name << " " << age << " כוע.\n";
+	fout << "װָ: " << last_name << " " << first_name << " " << age << " כוע;" << endl;
 	fout.close();
 }

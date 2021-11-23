@@ -37,6 +37,6 @@ void Professional_area::tofile()const
 {
 	Human::tofile();
 	ofstream fout("File.txt", std::ios_base::app);	//Создаем и открывае поток
-	fout << "Специальность: " << speciality << ", тип обучения: " << type_of_stydy << endl;
+	fout << "Специальность: " << speciality << ", тип обучения: " << type_of_stydy << ";" << endl;
 	fout.close();
 }

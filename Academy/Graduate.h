@@ -18,3 +18,5 @@ public:
 	void print()const;
 	void tofile()const;
 };
+
+ostream& operator>>(ostream& os, const Graduate& obj);

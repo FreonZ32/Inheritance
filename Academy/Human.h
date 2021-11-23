@@ -19,3 +19,5 @@ public:
 	virtual void print()const;
 	virtual void tofile()const;
 };
+
+ostream& operator<<(ostream& os, const Human& obj);

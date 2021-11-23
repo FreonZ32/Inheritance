@@ -22,11 +22,11 @@ Professional_area::Professional_area(const string& last_name, const string& firs
 {
 	set_speciality(speciality);
 	set_type_of_stydy(type_of_stydy);
-	cout << "PaConstructor:\t" << this << endl;
+	//cout << "PaConstructor:\t" << this << endl;
 }
 Professional_area::~Professional_area()
 {
-	cout << "PaDestructor:\t" << this << endl;
+	//cout << "PaDestructor:\t" << this << endl;
 }
 void Professional_area::print()const
 {
@@ -39,4 +39,10 @@ void Professional_area::tofile()const
 	ofstream fout("File.txt", std::ios_base::app);	//Создаем и открывае поток
 	fout << "Специальность: " << speciality << ", тип обучения: " << type_of_stydy << ";" << endl;
 	fout.close();
+}
+
+ostream& operator<<(ostream& os, const Professional_area& obj)
+{
+	os << (Human)obj;
+	return os <<"Специальность: " << obj.get_speciality() << ", тип обучения: " << obj.get_type_of_stydy() << ";";
 }

@@ -24,11 +24,11 @@ Graduate::Graduate(const string& last_name, const string& first_name, unsigned i
 {
 	set_thesis(thesis);
 	set_curator(curator);
-	cout << "SConstructor:\t" << this << endl;
+	//cout << "SConstructor:\t" << this << endl;
 }
 Graduate::~Graduate()
 {
-	cout << "SDestructor:\t" << this << endl;
+	//cout << "SDestructor:\t" << this << endl;
 }
 void Graduate::print()const
 {
@@ -41,4 +41,10 @@ void Graduate::tofile()const
 	ofstream fout("File.txt", std::ios_base::app);
 	fout << "Тема диплома: " << thesis << ", куратор: " << curator << ";" << endl;
 	fout.close();
+}
+
+ostream& operator>>(ostream& os, const Graduate& obj)
+{
+	return os << (Student)obj;
+	return os << "Тема диплома: " << obj.get_thesis() << ", куратор: " << obj.get_curator() << ";";
 }

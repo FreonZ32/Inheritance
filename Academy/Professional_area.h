@@ -17,3 +17,5 @@ public:
 	void print()const;
 	void tofile()const;
 };
+
+ostream& operator<<(ostream& os, const Professional_area& obj);

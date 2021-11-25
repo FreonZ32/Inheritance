@@ -6,7 +6,7 @@
 #include"Graduate.h"
 #include<string.h>
 #pragma warning(disable : 4996)
-#include <sstream>
+
 
 //#define INHERITANCE
 #define GROUP_MASSIVE
@@ -118,8 +118,8 @@ void main()
 			}
 			//system("pause");
 		}
-		for(int i = 0; i < size; i++)cout << groupfile[i] << endl;
-		for (int i = 0; i < size; i++)delete[] *groupfile[i];
+		//for(int i = 0; i < size; i++)cout << groupfile[i] << endl;
+		//for (int i = 0; i < size; i++)delete[] *groupfile[i];
 	}
 	else cerr << "File no found!" << endl;
 	fin.close();

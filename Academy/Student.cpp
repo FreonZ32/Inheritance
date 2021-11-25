@@ -44,7 +44,7 @@ ostream& Student::print(ostream& os)const
 {
 	Professional_area::print(os);
 	
-	return cout.width(10), os << left << group, os << left << rating << "\t";
+	return cout.width(10), os << left << group, cout.width(5), os << left << rating;
 }
 void Student::tofile()const
 {

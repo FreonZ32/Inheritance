@@ -42,8 +42,7 @@ Graduate::~Graduate()
 ostream& Graduate::print(ostream& os)const
 {
 	Student::print(os);
-	cout.width(30);
-	return os << /*"Тема диплома: "*/left << thesis, os << /*", куратор: "*/left << curator;
+	return cout.width(30), os << left << thesis, cout.width(10), os << left << curator;
 }
 void Graduate::tofile()const
 {

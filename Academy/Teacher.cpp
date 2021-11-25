@@ -41,8 +41,7 @@ Teacher::~Teacher()
 ostream& Teacher::print(ostream& os)const
 {
 	Professional_area::print(os);
-	cout.width(10);
-	return os << /*"Ученая степень: "*/left << academic_degree, os << /*", стаж: "*/left << experience;
+	return cout.width(10), os << left << academic_degree, cout.width(10), os << left << experience;
 }
 void Teacher::tofile()const
 {

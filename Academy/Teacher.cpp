@@ -46,7 +46,7 @@ ostream& Teacher::print(ostream& os)const
 ofstream& Teacher::print(ofstream& os)const
 {
 	Professional_area::print(os);
-	os.width(10), os << left << academic_degree << "|", os.width(5), os << internal << experience << "y" << "|", os.width(3), os << " ";
+	os.width(10), os << left << academic_degree << "|", os.width(5), os << internal << experience << "|", os.width(3), os << " ";
 	return os;
 }
 istream& Teacher::input(istream& is)

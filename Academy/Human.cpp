@@ -51,8 +51,8 @@ ostream& Human::print(ostream& os)const
 }
 ofstream& Human::print(ofstream& os)const
 {
-	os.width(10);
-	os << typeid(*this).name()<<"\t" <<"|";
+	os.width(15);
+	os << left <<typeid(*this).name() <<"|";
 	os.width(10); os << left << last_name << "|"; os.width(10); os << left << first_name << "|"; os.width(5); os << left << age << "|";
 	return os;
 }

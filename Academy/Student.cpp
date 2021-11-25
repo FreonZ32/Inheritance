@@ -48,7 +48,7 @@ ostream& Student::print(ostream& os)const
 ofstream& Student::print(ofstream& os)const
 {
 	Professional_area::print(os);
-	os.width(10), os << left << group << "|", os.width(5), os << internal << rating << "%" << "|", os.width(3), os << " ";
+	os.width(10), os << left << group << "|", os.width(5), os << internal << rating << "|", os.width(3), os << " ";
 	return os;
 }
 istream& Student::input(istream& is)

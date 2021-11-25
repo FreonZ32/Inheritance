@@ -11,9 +11,12 @@ public:
 	const string& get_type_of_stydy()const;
 	void set_type_of_stydy(const string& type_of_stydy);
 
+	Professional_area();
 	Professional_area(const string& last_name, const string& first_name, unsigned int age,
 		const string& speciality, const string& type_of_stydy);
 	~Professional_area();
 	ostream& print(ostream& os)const;
 	void tofile()const;
 };
+
+istream& operator>>(istream& is, Professional_area& obj);

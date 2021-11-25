@@ -17,6 +17,11 @@ void Graduate::set_curator(const string& curator)
 	this->curator = curator;
 }
 
+Graduate::Graduate() :Student()
+{
+	set_thesis("thesis");
+	set_curator("curator");
+}
 Graduate::Graduate(const string& last_name, const string& first_name, unsigned int age,
 	const string& speciality, const string& type_of_stydy,
 	const string& group, double rating, const string& thesis, const string& curator)
@@ -24,16 +29,21 @@ Graduate::Graduate(const string& last_name, const string& first_name, unsigned i
 {
 	set_thesis(thesis);
 	set_curator(curator);
+#ifdef CONSTRUCT_DEBUG
 	cout << "SConstructor:\t" << this << endl;
+#endif // CONSTRUCT_DEBUG
 }
 Graduate::~Graduate()
 {
+#ifdef CONSTRUCT_DEBUG
 	cout << "SDestructor:\t" << this << endl;
+#endif // CONSTRUCT_DEBUG
 }
 ostream& Graduate::print(ostream& os)const
 {
 	Student::print(os);
-	return os << /*"Тема диплома: "*/" " << thesis << /*", куратор: "*/" " << curator << endl;
+	cout.width(30);
+	return os << /*"Тема диплома: "*/left << thesis, os << /*", куратор: "*/left << curator;
 }
 void Graduate::tofile()const
 {

@@ -17,22 +17,32 @@ void Teacher::set_experience(unsigned int experience)
 	this->experience = experience;
 }
 
+Teacher::Teacher():Professional_area()
+{
+	set_academic_degree("academic_degree");
+	set_experience(0);
+}
 Teacher::Teacher(const string& last_name, const string& first_name, unsigned int age, const string& speciality,
 	const string& type_of_stydy, const string& academic_degree, const unsigned int experience)
 	:Professional_area(last_name, first_name, age, speciality, type_of_stydy)//Делигируем конструктор класса проф_сфера
 {
 	set_academic_degree(academic_degree);
 	set_experience(experience);
+#ifdef CONSTRUCT_DEBUG
 	cout << "TConstructor:\t" << this << endl;
+#endif // CONSTRUCT_DEBUG
 }
 Teacher::~Teacher()
 {
+#ifdef CONSTRUCT_DEBUG
 	cout << "TDestructor:\t" << this << endl;
+#endif // CONSTRUCT_DEBUG
 }
 ostream& Teacher::print(ostream& os)const
 {
 	Professional_area::print(os);
-	return os << /*"Ученая степень: "*/" " << academic_degree << /*", стаж: "*/" " << experience << endl;
+	cout.width(10);
+	return os << /*"Ученая степень: "*/left << academic_degree, os << /*", стаж: "*/left << experience;
 }
 void Teacher::tofile()const
 {

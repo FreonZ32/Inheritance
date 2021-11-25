@@ -8,3 +8,5 @@ using std::cout;
 using std::endl;
 
 void clear_file();
+
+//#define CONSTRUCT_DEBUG

@@ -8,6 +8,7 @@
 #pragma warning(disable : 4996)
 
 //#define INHERITANCE
+//#define GROUP_MASSIVE
 
 
 
@@ -30,7 +31,8 @@ void main()
 #endif // INHERITANCE
 
 
-	clear_file();
+#ifdef GROUP_MASSIVE
+	//clear_file();
 	Human* group[] =
 	{
 		new Student("Pinkman", "Jessy", 22, "Methamphimamine manufacture", "stydent", "WW_01", 93),
@@ -41,27 +43,31 @@ void main()
 	};
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{
-		cout << endl;
-		//group[i]->print();
-		cout << *group[i];
+		cout << *group[i] << endl;
 		//group[i]->tofile();
-		/*ofstream fout("File.txt", std::ios_base::app);
-		fout << endl;
-		fout.close();*/
-		ofstream fout("group.txt");
-		for (int i = 0; i < sizeof(group)/sizeof(group[0]); i++)
+		/*ofstream fout("group.txt");
+		for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
 		{
 			fout << *group[i] << endl;
 		}
-		fout.close();
+		fout.close();*/
 	}
 	//system("start notepad File.txt");
-	system("start notepad group.txt");
+	//system("start notepad group.txt");
 	cout << endl;
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
 	{
 		delete[] group[i];
 	}
+#endif // GROUP_MASSIVE
+
+		Human A;
+		cout << "¬ведите данные: "; cin >> A;
+		cout << A << endl;
+		Professional_area B;
+		cout << "¬ведите данные: "; cin >> B;
+		cout << B;
+
 }
 
 

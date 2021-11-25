@@ -17,6 +17,11 @@ void Student::set_rating(double rating)
 	this->rating = rating;
 }
 
+Student::Student():Professional_area()
+{
+	set_group("group");
+	set_rating(0);
+}
 Student::Student(const string& last_name, const string& first_name, unsigned int age,
 	const string& speciality, const string& type_of_stydy,
 	const string& group, double rating)
@@ -24,22 +29,27 @@ Student::Student(const string& last_name, const string& first_name, unsigned int
 {
 	set_group(group);
 	set_rating(rating);
+#ifdef CONSTRUCT_DEBUG
 	cout << "SConstructor:\t" << this << endl;
+#endif // CONSTRUCT_DEBUG
 }
 Student::~Student()
 {
+#ifdef CONSTRUCT_DEBUG
 	cout << "SDestructor:\t" << this << endl;
+#endif // CONSTRUCT_DEBUG
 }
 
 ostream& Student::print(ostream& os)const
 {
 	Professional_area::print(os);
-	return os << /*"Группа: "*/" " << group << /*", успеваемость: "*/" " << rating << endl;
+	
+	return cout.width(10), os << left << group, os << left << rating << "\t";
 }
 void Student::tofile()const
 {
 	Professional_area::tofile();
 	ofstream fout("File.txt", std::ios_base::app);
-	fout << /*"Группа: "*/" " << group << /*", успеваемость: "*/" " << rating << ";" << endl;
+	fout /*"Группа: "*/ << group << /*", успеваемость: "*/" " << rating << ";" << endl;
 	fout.close();
 }

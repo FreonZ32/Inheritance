@@ -47,9 +47,13 @@ Human::~Human()
 }
 ostream& Human::print(ostream& os)const
 {
-	cout.width(13);
-	return os << left << last_name, os << left << first_name << "\t" << age << "\t";
-	//return os /*<< endl << "װָ: "*/ << left << last_name, os << left << first_name, cout.width(5), os << left << age /*" כוע.\n" <<*/;
+	os.width(10);
+	os << left << last_name;
+	os.width(10);
+	os << left << first_name;
+	os.width(5);
+	os << left << age;
+	return os;
 }
 void Human::tofile()const
 {

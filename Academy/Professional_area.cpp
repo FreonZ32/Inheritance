@@ -40,7 +40,7 @@ Professional_area::~Professional_area()
 ostream& Professional_area::print(ostream& os)const
 {
 	Human::print(os);
-	return cout.width(35),os << /*"Специальность: "*/left << speciality, cout.width(10), os << /*", тип обучения: "*/left << type_of_stydy;
+	return cout.width(30),os << left << speciality, cout.width(10), os << left << type_of_stydy;
 }
 void Professional_area::tofile()const
 {

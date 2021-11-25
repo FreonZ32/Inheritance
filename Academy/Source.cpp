@@ -8,7 +8,8 @@
 #pragma warning(disable : 4996)
 
 //#define INHERITANCE
-//#define GROUP_MASSIVE
+#define GROUP_MASSIVE
+//#define CIN_CHECK
 
 
 
@@ -61,12 +62,15 @@ void main()
 	}
 #endif // GROUP_MASSIVE
 
-		Human A;
-		cout << "¬ведите данные: "; cin >> A;
-		cout << A << endl;
-		Professional_area B;
-		cout << "¬ведите данные: "; cin >> B;
-		cout << B;
+#ifdef CIN_CHECK
+	Human A;
+	cout << "¬ведите данные: "; cin >> A;
+	cout << A << endl;
+	Professional_area B;
+	cout << "¬ведите данные: "; cin >> B;
+	cout << B;
+#endif // CIN_CHECK
+
 
 }
 

@@ -17,5 +17,7 @@ public:
 		const string& type_of_stydy, const string& academic_degree, const unsigned int experience);
 	~Teacher();
 	ostream& print(ostream& os)const;
+	ofstream& print(ofstream& os)const;
+	istream& input(istream& is);
 	void tofile()const;
 };

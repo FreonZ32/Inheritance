@@ -42,7 +42,19 @@ Graduate::~Graduate()
 ostream& Graduate::print(ostream& os)const
 {
 	Student::print(os);
-	return cout.width(30), os << left << thesis, cout.width(10), os << left << curator;
+	return  os.width(20), os << left << curator, os << left << thesis;
+}
+ofstream& Graduate::print(ofstream& os)const
+{
+	Student::print(os);
+	os.width(20), os << left << curator << "|", os << left << thesis << "|";
+	return os;
+}
+istream& Graduate::input(istream& is)
+{
+	Graduate::input(is);
+	is >> curator >> thesis;
+	return is;
 }
 void Graduate::tofile()const
 {

@@ -18,5 +18,7 @@ public:
 	~Student();
 
 	ostream& print(ostream& os)const;
+	ofstream& print(ofstream& os)const;
+	istream& input(istream& is);
 	void tofile()const;
 };

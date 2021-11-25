@@ -1,0 +1,5 @@
+class Student	|Pinkman   |Jessy     |22   |Methamphimamine manufacture   |stydent   |WW_01     |   93%|   
+class Student	|Vercetti  |Tomas     |30   |Cryminal                      |stydent   |Vice      |   90%|   
+class Teacher	|Hartwell  |Walter    |50   |Methamphimamine manufacture   |teacher   |Magistr   |   24y|   
+class Teacher	|Eistein   |Albert    |143  |Astronomy                     |teacher   |God       |  120y|   
+class Graduate	|Schrader  |Hank      |43   |criminalistics                |student   |DEA       |   60%|   Walter Hartwell     |How to find Heisenberg|

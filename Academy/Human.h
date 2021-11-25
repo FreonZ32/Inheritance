@@ -18,8 +18,11 @@ public:
 	Human(const string& last_name, const string& first_name, unsigned int age);
 	virtual ~Human();
 	virtual ostream& print(ostream& os)const;
+	virtual ofstream& print(ofstream& os)const;
+	virtual istream& input(istream& is);
 	virtual void tofile()const;
 };
 
 ostream& operator<<(ostream& os, const Human& obj);
+ofstream& operator<<(ofstream& os, const Human& obj);
 istream& operator>>(istream& is, Human& obj);

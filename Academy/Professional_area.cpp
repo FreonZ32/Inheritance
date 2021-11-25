@@ -40,7 +40,19 @@ Professional_area::~Professional_area()
 ostream& Professional_area::print(ostream& os)const
 {
 	Human::print(os);
-	return cout.width(30),os << left << speciality, cout.width(10), os << left << type_of_stydy;
+	return os.width(30),os << left << speciality, os.width(10), os << left << type_of_stydy;
+}
+ofstream& Professional_area::print(ofstream& os)const
+{
+	Human::print(os);
+	os.width(30), os << left << speciality << "|", os.width(10), os << left << type_of_stydy << "|";
+	return os;
+}
+istream& Professional_area::input(istream& is)
+{
+	Human::input(is);
+	is >> speciality >> type_of_stydy;
+	return is;
 }
 void Professional_area::tofile()const
 {
@@ -48,29 +60,4 @@ void Professional_area::tofile()const
 	ofstream fout("File.txt", std::ios_base::app);
 	fout /* "Специальность: "*/ << speciality << /*", тип обучения: "*/" " << type_of_stydy << ";" << endl;
 	fout.close();
-}
-
-istream& operator>>(istream& is, Professional_area& obj)
-{
-	const int S = 256;
-	char buffer[S] = {};
-	char buf[S] = {};
-	is.getline(buffer, S);
-	string str;
-	for (int i = 0; buffer[i]; i++)
-	{
-		for (int k = 0; buffer[i]; k++, i++)
-		{
-			if (buffer[i] != ' ')buf[k] = buffer[i];
-			else break;
-		}
-		str = buf;
-		if (obj.get_last_name() == "last_name")obj.set_last_name(str);
-		else if (obj.get_first_name() == "first_name")obj.set_first_name(str);
-		else if (obj.get_age() == 0) { double k = atoi(buf); obj.set_age(k); }
-		else if (obj.get_speciality() == "speciality")obj.set_speciality(str);
-		else if (obj.get_type_of_stydy() == "type_of_stydy")obj.set_type_of_stydy(str);
-		memset(buf, 0, sizeof(char) * i);
-	}
-	return is;
 }

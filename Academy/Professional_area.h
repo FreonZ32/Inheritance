@@ -16,7 +16,7 @@ public:
 		const string& speciality, const string& type_of_stydy);
 	~Professional_area();
 	ostream& print(ostream& os)const;
+	ofstream& print(ofstream& os)const;
+	istream& input(istream& is);
 	void tofile()const;
 };
-
-istream& operator>>(istream& is, Professional_area& obj);

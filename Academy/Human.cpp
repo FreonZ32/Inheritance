@@ -47,13 +47,19 @@ Human::~Human()
 }
 ostream& Human::print(ostream& os)const
 {
+	return os.width(10),os << left << last_name,os.width(10), os << left << first_name, os.width(5),os << left << age;
+}
+ofstream& Human::print(ofstream& os)const
+{
 	os.width(10);
-	os << left << last_name;
-	os.width(10);
-	os << left << first_name;
-	os.width(5);
-	os << left << age;
+	os << typeid(*this).name()<<"\t" <<"|";
+	os.width(10); os << left << last_name << "|"; os.width(10); os << left << first_name << "|"; os.width(5); os << left << age << "|";
 	return os;
+}
+
+istream& Human::input(istream& is)
+{
+	return is >> last_name >> first_name >> age;
 }
 void Human::tofile()const
 {
@@ -67,25 +73,12 @@ ostream& operator<<(ostream& os, const Human& obj)
 	obj.print(os);
 	return os;
 }
+ofstream& operator<<(ofstream& os, const Human& obj)
+{
+	obj.print(os);
+	return os;
+}
 istream& operator>>(istream& is, Human& obj)
 {
-	const int S = 256;
-	char buffer[S] = {};
-	char buf[S] = {};
-	is.getline(buffer, S);
-	string str;
-	for (int i = 0; buffer[i]; i++)
-	{
-		for (int k = 0; buffer[i];k++, i++)
-		{
-			if (buffer[i] != ' ')buf[k] = buffer[i];
-			else break;
-		}
-		str = buf;
-		if(obj.get_last_name()=="last_name")obj.set_last_name(str);
-		else if(obj.get_first_name()=="first_name")obj.set_first_name(str);
-		else if (obj.get_age() == 0) { double k = atoi(buf); obj.set_age(k);}
-		memset(buf, 0, sizeof(char) * i);
-	}
-	return is;
+	return obj.input(is);
 }

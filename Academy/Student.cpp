@@ -43,8 +43,19 @@ Student::~Student()
 ostream& Student::print(ostream& os)const
 {
 	Professional_area::print(os);
-	
-	return cout.width(10), os << left << group, cout.width(5), os << left << rating;
+	return os.width(10), os << left << group, os.width(5), os << internal << rating <<"%",os.width(3),os << " ";
+}
+ofstream& Student::print(ofstream& os)const
+{
+	Professional_area::print(os);
+	os.width(10), os << left << group << "|", os.width(5), os << internal << rating << "%" << "|", os.width(3), os << " ";
+	return os;
+}
+istream& Student::input(istream& is)
+{
+	Professional_area::input(is);
+	is >> group >> rating;
+	return is;
 }
 void Student::tofile()const
 {

@@ -17,5 +17,7 @@ public:
 		const string& group, double rating, const string& thesis, const string& curator);
 	~Graduate();
 	ostream& print(ostream& os)const;
+	ofstream& print(ofstream& os)const;
+	istream& input(istream& is);
 	void tofile()const;
 };

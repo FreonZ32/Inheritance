@@ -48,7 +48,7 @@ void main()
 	ofstream fout("group.txt");
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)fout << *group[i] << endl;
 	fout.close();
-
+	//READ FROM FILE
 	ifstream fin("group.txt");
 	//system("start notepad group.txt");
 	if (fin.is_open())

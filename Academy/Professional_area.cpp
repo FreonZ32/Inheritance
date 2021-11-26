@@ -54,6 +54,13 @@ istream& Professional_area::input(istream& is)
 	is >> speciality >> type_of_stydy;
 	return is;
 }
+ifstream& Professional_area::input(ifstream& is)
+{
+	Human::input(is);
+	getline(is, speciality,'|');
+	getline(is, type_of_stydy,'|');
+	return is;
+}
 void Professional_area::tofile()const
 {
 	Human::tofile();

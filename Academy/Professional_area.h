@@ -18,5 +18,6 @@ public:
 	ostream& print(ostream& os)const;
 	ofstream& print(ofstream& os)const;
 	istream& input(istream& is);
+	ifstream& input(ifstream& is);
 	void tofile()const;
 };

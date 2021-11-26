@@ -55,6 +55,15 @@ istream& Teacher::input(istream& is)
 	is >> academic_degree >> experience;
 	return is;
 }
+ifstream& Teacher::input(ifstream& is)
+{
+	Professional_area::input(is);
+	getline(is, academic_degree, '|');
+	string experience_buffer;
+	getline(is, experience_buffer, '|');
+	this->experience = stoi(experience_buffer);
+	return is;
+}
 void Teacher::tofile()const
 {
 	Professional_area::tofile();

@@ -61,6 +61,15 @@ istream& Human::input(istream& is)
 {
 	return is >> last_name >> first_name >> age;
 }
+ifstream& Human::input(ifstream& is)
+{
+	getline(is, last_name, '|');
+	getline(is, first_name, '|');
+	string age_buffer;
+	getline(is, age_buffer, '|');
+	this->age = stoi(age_buffer);
+	return is;
+}
 void Human::tofile()const
 {
 	ofstream fout("File.txt", std::ios_base::app);
@@ -77,6 +86,10 @@ ofstream& operator<<(ofstream& os, const Human& obj)
 {
 	obj.print(os);
 	return os;
+}
+ifstream& operator>>(ifstream& is, Human& obj)
+{
+	return obj.input(is);
 }
 istream& operator>>(istream& is, Human& obj)
 {

@@ -12,7 +12,7 @@
 //#define INHERITANCE
 //#define GROUP_MASSIVE
 //#define CIN_CHECK
-#define READ_FROM_FILE
+//#define READ_FROM_FILE
 
 void main()
 {
@@ -167,7 +167,7 @@ void main()
 #endif // READ_FROM_FILE
 
 	Load_from_file("group.txt");
-
+	//Print(group, 5);
 }
 
 

@@ -20,6 +20,7 @@ public:
 	virtual ostream& print(ostream& os)const;
 	virtual ofstream& print(ofstream& os)const;
 	virtual istream& input(istream& is);
+	virtual ifstream& input(ifstream& is);
 	virtual void tofile()const;
 };
 

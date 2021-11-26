@@ -56,6 +56,13 @@ istream& Graduate::input(istream& is)
 	is >> curator >> thesis;
 	return is;
 }
+ifstream& Graduate::input(ifstream& is)
+{
+	Student::input(is);
+	getline(is, curator, '|');
+	getline(is, thesis, '|');
+	return is;
+}
 void Graduate::tofile()const
 {
 	Student::tofile();

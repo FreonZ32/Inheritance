@@ -57,6 +57,15 @@ istream& Student::input(istream& is)
 	is >> group >> rating;
 	return is;
 }
+ifstream& Student::input(ifstream& is)
+{
+	Professional_area::input(is);
+	getline(is, group, '|');
+	string rating_buffer;
+	getline(is, rating_buffer, '|');
+	this->rating = stod(rating_buffer);
+	return is;
+}
 void Student::tofile()const
 {
 	Professional_area::tofile();

@@ -5,6 +5,7 @@
 #include"Student.h"
 #include"Graduate.h"
 #include<string.h>
+#include<vector>
 #pragma warning(disable : 4996)
 
 
@@ -47,13 +48,15 @@ void main()
 	ofstream fout("group.txt");
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)fout << *group[i] << endl;
 	fout.close();
+
 	ifstream fin("group.txt");
-	system("start notepad group.txt");
+	//system("start notepad group.txt");
 	if (fin.is_open())
 	{
 		int size = HMstr("group.txt");
 		string str;
-		Human* groupfile = new Human[size];
+		const int* size1 = (int*)(&size);
+		vector<Human*>groupfile = {};
 		string last_name, first_name, speciality, type_of_stydy, group,curator,thesis, academic_degree;
 		unsigned int age = 0, experience = 0; double rating = 0;
 		for (int i = 0; i < size; i++)
@@ -86,9 +89,9 @@ void main()
 				}
 				if (!memcmp(str.c_str(), "classStudent", 12))
 				{
-					groupfile[i] = Student(last_name, first_name, age, speciality, type_of_stydy, group, rating);
+					groupfile.push_back(new Student(last_name, first_name, age, speciality, type_of_stydy, group, rating));
 				}
-				else groupfile[i] = Graduate(last_name, first_name, age, speciality, type_of_stydy, group, rating, thesis, curator);
+				else groupfile.push_back(new Graduate(last_name, first_name, age, speciality, type_of_stydy, group, rating, thesis, curator));
 			}
 			if (!memcmp(str.c_str(), "classTeacher", 12) || !memcmp(str.c_str(), "classHuman", 10))
 			{
@@ -112,14 +115,15 @@ void main()
 				}
 				if (!memcmp(str.c_str(), "classTeacher", 12))
 				{
-					groupfile[i] = Teacher(last_name,first_name,age,speciality,type_of_stydy,academic_degree,experience);
+					groupfile.push_back(new Teacher(last_name,first_name,age,speciality,type_of_stydy,academic_degree,experience));
 				}
-				else groupfile[i] = Human(last_name, first_name, age);
+				else groupfile.push_back(new Human(last_name, first_name, age));
 			}
 			//system("pause");
 		}
-		//for(int i = 0; i < size; i++)cout << groupfile[i] << endl;
-		//for (int i = 0; i < size; i++)delete[] *groupfile[i];
+		for(int i = 0; i < size; i++)cout << *groupfile[i] << endl;
+		groupfile.clear();
+		//for (int i = 0; i < size; i++)[] *groupfile[i];
 	}
 	else cerr << "File no found!" << endl;
 	fin.close();
@@ -141,7 +145,7 @@ void main()
 	cout << B;*/
 #endif // CIN_CHECK
 
-
+	
 }
 
 

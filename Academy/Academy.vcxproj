@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Files.cpp" />
     <ClCompile Include="Graduate.cpp" />
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="Professional_area.cpp" />
@@ -151,6 +152,7 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Files.h" />
     <ClInclude Include="Graduate.h" />
     <ClInclude Include="Human.h" />
     <ClInclude Include="Professional_area.h" />

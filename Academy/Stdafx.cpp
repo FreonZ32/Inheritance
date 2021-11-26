@@ -15,11 +15,11 @@ int HMstr(const string& name)
 	ifstream fin(name);
 	if (fin.is_open())
 	{
-		string str; 
+		string str;
 		while (getline(fin, str)) size++;
+		fin.close();
 	}
 	else cerr << "File no found!" << endl;
-	fin.close();
 	return size;
 }
 string& DelSpace(string& str)

@@ -6,14 +6,13 @@
 #include"Graduate.h"
 #include<string.h>
 #include<vector>
+#include"Files.h"
 #pragma warning(disable : 4996)
 
-
 //#define INHERITANCE
-#define GROUP_MASSIVE
+//#define GROUP_MASSIVE
 //#define CIN_CHECK
-
-
+#define READ_FROM_FILE
 
 void main()
 {
@@ -32,7 +31,6 @@ void main()
 	Graduate f("Schrader", "Hank", 43, "criminalistics", "student", "DEA", 60, "How to find Heisenberg", "WalterHartwell");
 	f.print();
 #endif // INHERITANCE
-
 
 #ifdef GROUP_MASSIVE
 	clear_file();
@@ -111,7 +109,7 @@ void main()
 					default:break;
 					}
 					num++;
-					//cout << num++ << token << endl;
+					//cout << num << "-" << token << endl;
 				}
 				if (!memcmp(str.c_str(), "classTeacher", 12))
 				{
@@ -145,7 +143,31 @@ void main()
 	cout << B;*/
 #endif // CIN_CHECK
 
+#ifdef READ_FROM_FILE
+	clear_file();
+	const Human* group[] =
+	{
+		new Student("Pinkman", "Jessy", 22, "Methamphimamine manufacture", "stydent", "WW_01", 93),
+		new Student("Vercetti", "Tomas", 30, "Cryminal", "stydent", "Vice", 90),
+		new	Teacher("Hartwell", "Walter", 50, "Methamphimamine manufacture", "teacher", "Magistr", 24),
+		new Teacher("Eistein", "Albert", 143, "Astronomy", "teacher", "God", 120),
+		new Graduate("Schrader", "Hank", 43, "criminalistics", "student", "DEA", 60, "How to find Heisenberg", "Walter Hartwell")
+	};
+	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)cout << *group[i] << endl;
+	string filename = "group.txt";
+	Save_to_file(group, sizeof(group) / sizeof(group[0]), filename);
 	
+	/*ofstream fout("group.txt");
+	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)fout << *group[i] << endl;
+	fout.close();*/
+
+	//system("start notepad group.txt");
+	system((string("start notepad ") + filename).c_str());
+	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)delete[] group[i];
+#endif // READ_FROM_FILE
+
+	Load_from_file("group.txt");
+
 }
 
 

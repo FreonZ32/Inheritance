@@ -13,3 +13,4 @@ int HMstr(const string& name);
 string& DelSpace(string& str);
 
 //#define CONSTRUCT_DEBUG
+

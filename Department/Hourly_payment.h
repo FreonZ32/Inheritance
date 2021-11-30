@@ -15,8 +15,8 @@ public:
 	void set_final_pay();
 
 	Hourly_payment();
-	Hourly_payment(const string& last_name, const string& first_name, const string& profession, const string& type_of_payment,
-		const unsigned int experience, const double payment, const unsigned int hours_worked);
+	Hourly_payment(const string& last_name, const string& first_name, const string& profession,const unsigned int experience,
+		const double payment, const unsigned int hours_worked, const string& type_of_payment = "by_hours");
 	~Hourly_payment();
 
 	ostream& print(ostream& os)const;

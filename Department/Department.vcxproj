@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Hourly_payment.cpp" />
     <ClCompile Include="Human.cpp" />
+    <ClCompile Include="Monthly_payment.cpp" />
     <ClCompile Include="Profession.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Stdafx.cpp" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Hourly_payment.h" />
     <ClInclude Include="Human.h" />
+    <ClInclude Include="Monthly_payment.h" />
     <ClInclude Include="Profession.h" />
     <ClInclude Include="Stdafx.h" />
   </ItemGroup>

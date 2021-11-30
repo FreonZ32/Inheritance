@@ -31,7 +31,7 @@ Profession::Profession()
 	set_type_of_payment("type_of_payment");
 	set_experience(0);
 }
-Profession::Profession(const string& last_name, const string& first_name, const string& profession, const string& type_of_payment, const unsigned int experience)
+Profession::Profession(const string& last_name, const string& first_name, const string& profession, const unsigned int experience, const string& type_of_payment)
 	:Human(last_name,first_name)
 {
 	set_profession(profession);

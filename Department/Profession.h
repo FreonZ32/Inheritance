@@ -15,7 +15,7 @@ public:
 	void set_experience(const unsigned int experience);
 
 	Profession();
-	Profession(const string& last_name, const string& first_name, const string& profession, const string& type_of_payment, const unsigned int experience);
+	Profession(const string& last_name, const string& first_name, const string& profession, const unsigned int experience, const string& type_of_payment = "type_of_payment");
 	~Profession();
 
 	ostream& print(ostream& os)const;

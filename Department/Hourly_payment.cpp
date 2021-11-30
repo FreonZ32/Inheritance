@@ -32,9 +32,9 @@ Hourly_payment::Hourly_payment()
 	set_hours_worked(0);
 	set_final_pay();
 }
-Hourly_payment::Hourly_payment(const string& last_name, const string& first_name, const string& profession, const string& type_of_payment,
-	const unsigned int experience, const double payment, const unsigned int hours_worked)
-	:Profession(last_name, first_name, profession, "by_hours", experience)
+Hourly_payment::Hourly_payment(const string& last_name, const string& first_name, const string& profession, const unsigned int experience,
+	const double payment, const unsigned int hours_worked, const string& type_of_payment)
+	:Profession(last_name, first_name, profession, experience, type_of_payment)
 {
 	set_payment(payment);
 	set_hours_worked(hours_worked);

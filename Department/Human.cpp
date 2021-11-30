@@ -41,7 +41,7 @@ ostream& Human::print(ostream& os)const
 }
 ofstream& Human::print(ofstream& os)const
 {
-	os << typeid(*this).name() << ",";
+	os << typeid(*this).name();
 	os << "," << last_name << "," << first_name;
 	return os;
 }

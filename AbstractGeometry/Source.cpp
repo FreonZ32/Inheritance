@@ -221,6 +221,7 @@ namespace Geometry
 			HDC hdc = GetDC(hwnd);
 			//HDC hdc = GetDC(NULL);
 
+			//Узнать высоту и ширину строк
 			/*HANDLE hWndConsole;
 			if (hWndConsole = GetStdHandle(-12))
 			{
@@ -237,16 +238,25 @@ namespace Geometry
 			}
 			else
 				printf("Error: %d\n", GetLastError());*/
+
+			//Узнаем где коретка
 			int x = getXcoord();
 			int y = getYcoord();
 			//cout << getXcoord() << endl; cout << getYcoord() << endl;
+			// 
+			//Разворачивание окна на fullscreen
+			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+			COORD buffer = { 80,50 };
+			SetConsoleDisplayMode(hConsole, CONSOLE_FULLSCREEN, &buffer);
+			system("pause");
+
 			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
 			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
 			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);	//тип отрисовки/толщина/цвет
 			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
 			SelectObject(hdc, hPen);
 
-			::Rectangle(hdc, x, y*30, x+width*100, y * 30+length*100);
+			::Rectangle(hdc, x, y*30, x+width/0.258*10, y * 30+length/0.258*10);
 		
 			DeleteObject(hPen);
 			DeleteObject(hBrush);

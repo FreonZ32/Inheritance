@@ -9,7 +9,12 @@ using std::endl;
 
 #define хы endl 
 
-enum Color
+int pth(int x, int y)
+{
+	return (int)sqrt(pow(x, 2) + pow(y, 2));
+}
+
+enum class Color
 {
 	consol_gray = 0x88,
 	console_blue = 0x99,
@@ -25,7 +30,7 @@ protected:
 public:
 	const Color get_color()const
 	{
-		return color;
+		return this->color;
 	}
 	void set_color(Color color)
 	{
@@ -44,6 +49,8 @@ public:
 	virtual double get_space()const = 0;
 	virtual double get_perimeter()const = 0;
 	virtual void draw()const = 0;
+	virtual void type_space()const = 0;
+	virtual void type_perimeter()const = 0;
 };
 
 class Circle :public FlatShape
@@ -54,7 +61,7 @@ public:
 	{
 		return radius;
 	}
-	void set_radius(double raduis)
+	void set_radius(double radius)
 	{
 		if (radius <= 0)radius = 1;
 		this->radius = radius;
@@ -75,9 +82,26 @@ public:
 	}
 	void draw()const
 	{
-		
+		double r = int(radius-1);
+		const double length = r;
+		const double width = r;
+		for (double y = width; y >= -width; y--) 
+		{
+			for (double x = -length; x <= length; x++) 
+			{
+				if ((int)pth(x, y) == r) cout << "* ";
+				else cout << "  ";
+			}cout << хы;
+		}
 	}
-
+	void type_space()const
+	{
+		cout << "Площадь круга равна: ";
+	}
+	void type_perimeter()const
+	{
+		cout << "Длинна окружности равна: ";
+	}
 };
 
 class Polygons :public FlatShape
@@ -161,6 +185,14 @@ public:
 			}cout << хы;
 		}
 	}
+	void type_space()const
+	{
+		cout << "Площадь прямоугольника равна: ";
+	}
+	void type_perimeter()const
+	{
+		cout << "Периметр прямоугольника равен: ";
+	}
 };
 class RegularFigure :public Polygons
 {
@@ -219,6 +251,14 @@ public:
 			}cout << endl;
 		}
 	}
+	void type_space()const
+	{
+		cout << "Площадь квадрата равна: ";
+	}
+	void type_perimeter()const
+	{
+		cout << "Периметр квадрата равен: ";
+	}
 };
 
 class RegularTriangle :public RegularFigure
@@ -242,8 +282,8 @@ public:
 		{
 			if ((int)side & 1)
 			{
-				for (int j = side / 2 - i; j > 0; j--)cout << "  ";
-				for (int j = i + (int)k; j > 0; j--)cout << "* ";
+				for (int j = int(side / 2 - i); j > 0; j--)cout << "  ";
+				for (int j = int(i + (int)k); j > 0; j--)cout << "* ";
 			}
 			else
 			{
@@ -254,6 +294,14 @@ public:
 			}k += 0.5;
 			cout << хы;
 		}
+	}
+	void type_space()const
+	{
+		cout << "Площадь правильного треугольника равна: ";
+	}
+	void type_perimeter()const
+	{
+		cout << "Периметр правильного треугольника равен: ";
 	}
 };
 
@@ -272,8 +320,26 @@ void main()
 	cout << "Площадь правильного треугольника: " << Tre.get_space() << хы;
 	cout << "Периметр правильного треугольника: " << Tre.get_perimeter() << хы;
 	Tre.draw();
-	Circle Cru(10, Color::console_red);
+	Circle Cru(10.2, Color::console_red);
 	cout << "Площадь круга: " << Cru.get_space() << хы;
 	cout << "Длинна окружности: " << Cru.get_perimeter() << хы;
 	Cru.draw();
+	
+	vector<FlatShape> group = {};
+	int l;
+	cout << "Сколько фигур создать? "; cin >> l;
+	for (int i = 0; i < l; i++)
+	{
+		double rand1 = rand() % 30 * 0.12;
+		double rand2 = rand() % 30 * 0.12;
+		int k = rand() % 3;
+		switch (k)
+		{
+		case 0:group.push_back(Circle(rand1, Color::console_red)); break;
+		case 1:group.push_back(RegularTriangle(rand1, Color::console_red)); break;
+		case 2:group.push_back(Rectangle(rand1, rand2, Color::console_red)); break;
+		case 3:group.push_back(Square(rand1, Color::console_red)); break;
+		default:break;
+		}
+	}
 }

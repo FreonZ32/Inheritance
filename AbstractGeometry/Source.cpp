@@ -103,7 +103,38 @@ namespace Geometry
 		}
 		void draw()const
 		{
-			HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			/*HANDLE hWndConsole;
+			if (hWndConsole = GetStdHandle(-12))
+			{
+				CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+				if (GetConsoleScreenBufferInfo(hWndConsole, &consoleInfo))
+				{
+					int widht = consoleInfo.srWindow.Right - consoleInfo.srWindow.Left + 1;
+					int height = consoleInfo.srWindow.Bottom - consoleInfo.srWindow.Top + 1;
+					printf("Widht: %d\n", widht);
+					printf("Height: %d\n", height);
+				}
+				else
+					printf("Error: %d\n", GetLastError());
+			}
+			else
+				printf("Error: %d\n", GetLastError());*/
+
+			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
+			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);	//тип отрисовки/толщина/цвет
+			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
+			SelectObject(hdc, hPen);
+			int x = getXcoord();
+			int y = getYcoord();
+			::Ellipse(hdc, x, y * 30, x + (radius*2) / 0.258 * 10, y * 30 + (radius*2) / 0.258 * 10);
+
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+
+			/*HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(hwnd, FOREGROUND_GREEN);
 			double r = int(radius - 1);
 			const double length = r;
@@ -116,7 +147,7 @@ namespace Geometry
 					else cout << "  ";
 				}cout << хы;
 			}
-			SetConsoleTextAttribute(hwnd, 15);
+			SetConsoleTextAttribute(hwnd, 15);*/
 		}
 		void type_space()const
 		{
@@ -240,8 +271,8 @@ namespace Geometry
 				printf("Error: %d\n", GetLastError());*/
 
 			//Узнаем где коретка
-			int x = getXcoord();
-			int y = getYcoord();
+			int x = getXcoord(); cout << x << endl;
+			int y = getYcoord(); cout << y << endl;
 			//cout << getXcoord() << endl; cout << getYcoord() << endl;
 			// 
 			//Разворачивание окна на fullscreen
@@ -450,8 +481,13 @@ void main()
 	}
 #endif // RANDOM_GENERATING
 
-	Geometry::Rectangle Rec(5, 10, Color::yellow);
+	/*Geometry::Rectangle Rec(5, 10, Color::yellow);
 	cout << "Площадь прямоугольника: " << Rec.get_space() << хы;
 	cout << "Периметр прямоугольника: " << Rec.get_perimeter() << хы;
-	Rec.draw();
+	Rec.draw();*/
+
+	Geometry::Circle Cru(4, Color::yellow);
+	cout << "Площадь круга: " << Cru.get_space() << хы;
+	cout << "Длинна окружности: " << Cru.get_perimeter() << хы;
+	Cru.draw();
 }

@@ -305,9 +305,12 @@ public:
 	}
 };
 
+//#define SIMPLE_CREATING
+
 void main()
 {
 	setlocale(LC_ALL, "rus");
+#ifdef SIMPLE_CREATING
 	Square Squ(6, Color::console_red);
 	cout << "Площадь квадрата: " << Squ.get_space() << хы;
 	cout << "Периметр квадрата: " << Squ.get_perimeter() << хы;
@@ -324,22 +327,32 @@ void main()
 	cout << "Площадь круга: " << Cru.get_space() << хы;
 	cout << "Длинна окружности: " << Cru.get_perimeter() << хы;
 	Cru.draw();
+#endif // SIMPLE_CREATING
+
 	
-	vector<FlatShape> group = {};
 	int l;
 	cout << "Сколько фигур создать? "; cin >> l;
+	FlatShape** group;
+	group = new FlatShape * [l];
 	for (int i = 0; i < l; i++)
 	{
-		double rand1 = rand() % 30 * 0.12;
-		double rand2 = rand() % 30 * 0.12;
+		double rand1 = 4 + rand() % 30 * 0.12;
+		double rand2 = 4 + rand() % 30 * 0.12;
 		int k = rand() % 3;
 		switch (k)
 		{
-		case 0:group.push_back(Circle(rand1, Color::console_red)); break;
-		case 1:group.push_back(RegularTriangle(rand1, Color::console_red)); break;
-		case 2:group.push_back(Rectangle(rand1, rand2, Color::console_red)); break;
-		case 3:group.push_back(Square(rand1, Color::console_red)); break;
+		case 0:group[i] = new Circle (rand1, Color::console_red); break;
+		case 1:group[i] = new RegularTriangle(rand1, Color::console_red); break;
+		case 2:group[i] = new Rectangle(rand1, rand2, Color::console_red); break;
+		case 3:group[i] = new Square(rand1, Color::console_red); break;
 		default:break;
 		}
+	}
+	for (int i = 0; i < l; i++)
+	{
+		group[i]->type_space();cout << group[i]->get_space() << хы;
+		group[i]->type_perimeter();cout << group[i]->get_perimeter() << хы;
+		group[i]->draw();
+		cout << хы;
 	}
 }

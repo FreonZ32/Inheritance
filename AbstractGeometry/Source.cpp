@@ -195,7 +195,23 @@ public:
 	}
 	void draw()const
 	{
-	
+		double k = 1;
+		for (double i = 0; i < side / 2; i += 0.5)
+		{
+			if ((int)side & 1)
+			{
+				for (int j = side / 2 - i; j > 0; j--)cout << "  ";
+				for (int j = i + (int)k; j > 0; j--)cout << "* ";
+			}
+			else
+			{
+				double l = -0.5;
+				if ((int)side != side)l = 0.5;
+				for (int j = side / 2 - i + l; j > 0; j--)cout << "  ";
+				for (double j = i + (int)k; j >= 0; j--)cout << "* ";
+			}k += 0.5;
+			cout << хы;
+		}
 	}
 };
 
@@ -210,7 +226,7 @@ void main()
 	cout << "Площадь прямоугольника: " << Rec.get_space() << хы;
 	cout << "Периметр прямоугольника: " << Rec.get_perimeter() << хы;
 	Rec.draw();
-	RegularTriangle Tre(5, Color::console_red);
+	RegularTriangle Tre(6, Color::console_red);
 	cout << "Площадь правильного треугольника: " << Tre.get_space() << хы;
 	cout << "Периметр правильного треугольника: " << Tre.get_perimeter() << хы;
 	Tre.draw();

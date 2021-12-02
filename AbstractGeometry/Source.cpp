@@ -23,6 +23,14 @@ class FlatShape
 protected:
 	Color color;
 public:
+	const Color get_color()const
+	{
+		return color;
+	}
+	void set_color(Color color)
+	{
+		this->color = color;
+	}
 	FlatShape(Color color) :color(color)
 	{
 		this->color = color;
@@ -36,6 +44,40 @@ public:
 	virtual double get_space()const = 0;
 	virtual double get_perimeter()const = 0;
 	virtual void draw()const = 0;
+};
+
+class Circle :public FlatShape
+{
+	double radius;
+public:
+	const double get_radius()const
+	{
+		return radius;
+	}
+	void set_radius(double raduis)
+	{
+		if (radius <= 0)radius = 1;
+		this->radius = radius;
+	}
+	Circle(double radius, Color color) :FlatShape(color)
+	{
+		set_color(color);
+		set_radius(radius);
+	}
+	~Circle(){}
+	double get_space()const
+	{
+		return 3.14*pow(get_radius(),2);
+	}
+	double get_perimeter()const	//Длинна окружности, а не площадь.
+	{
+		return (2*3.14*get_radius());
+	}
+	void draw()const
+	{
+		
+	}
+
 };
 
 class Polygons :public FlatShape
@@ -226,9 +268,12 @@ void main()
 	cout << "Площадь прямоугольника: " << Rec.get_space() << хы;
 	cout << "Периметр прямоугольника: " << Rec.get_perimeter() << хы;
 	Rec.draw();
-	RegularTriangle Tre(6, Color::console_red);
+	RegularTriangle Tre(21.2, Color::console_red);
 	cout << "Площадь правильного треугольника: " << Tre.get_space() << хы;
 	cout << "Периметр правильного треугольника: " << Tre.get_perimeter() << хы;
 	Tre.draw();
-	
+	Circle Cru(10, Color::console_red);
+	cout << "Площадь круга: " << Cru.get_space() << хы;
+	cout << "Длинна окружности: " << Cru.get_perimeter() << хы;
+	Cru.draw();
 }

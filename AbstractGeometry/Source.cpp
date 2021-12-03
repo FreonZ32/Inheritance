@@ -68,8 +68,17 @@ int pth(int x, int y)
 
 enum class Color
 {
-	pink = 0x00AA00FF,grass = 0x0000F0C0,light_blue = 0x00FFFF00,sea_wave = 0x00AFAA0C,white = 0x00FFFFFF,
-	red = 0x000000FF, green = 0x0000FF00, blue = 0x00FF0000,yellow = 0x0000FFFF,grey = 0x00AAAAAA,orange = 0x000AAFFA,
+	pink = 0x00AA00FF,
+	grass = 0x0000F0C0,
+	light_blue = 0x00FFFF00,
+	sea_wave = 0x00AFAA0C,
+	white = 0x00FFFFFF,
+	red = 0x000000FF,
+	green = 0x0000FF00,
+	blue = 0x00FF0000,
+	yellow = 0x0000FFFF,
+	grey = 0x00AAAAAA,
+	orange = 0x000AAFFA,
 	sky = 0x00FFADAA
 };
 
@@ -201,7 +210,6 @@ namespace Geometry
 				this->number_of_sides[i] = numbers[i];
 			}
 		}
-
 		Polygons(Color color, int how_many_sides) :FlatShape(color)
 		{
 			set_number_of_sides(how_many_sides);
@@ -591,13 +599,13 @@ namespace Geometry
 			SelectObject(hdc, hPen);
 			int x = getXcoord();
 			int y = getYcoord();
-			setCousorPosition(0, (y*30 + side / 0.258*10)/15);
+			setCousorPosition(0, (y * 30 + side / 0.258 * 10) / 15);
 			Sleep(200);
 			const int N = 3;
 			POINT Pt[N];
-			Pt[0].x = 0; Pt[0].y = y*30;
-			Pt[1].x = 0; Pt[1].y = y*30 + side/0.258*10;
-			Pt[2].x = base_side/0.258*10; Pt[2].y = y * 30 + side / 0.258 * 10;
+			Pt[0].x = 0; Pt[0].y = y * 30;
+			Pt[1].x = 0; Pt[1].y = y * 30 + side / 0.258 * 10;
+			Pt[2].x = base_side / 0.258 * 10; Pt[2].y = y * 30 + side / 0.258 * 10;
 			Polygon(hdc, Pt, N);
 			DeleteObject(hPen); DeleteObject(hBrush);
 		}
@@ -611,61 +619,13 @@ namespace Geometry
 		}
 	};
 }
-//#define SIMPLE_CREATING
+#define SIMPLE_CREATING
 //#define RANDOM_GENERATING
-
+//#define RANDOM_GENERATE
 void main()
 {
 	setlocale(LC_ALL, "rus");
 #ifdef SIMPLE_CREATING
-	Geometry::Square Squ(6, Color::console_red);
-	cout << "Площадь квадрата: " << Squ.get_space() << хы;
-	cout << "Периметр квадрата: " << Squ.get_perimeter() << хы;
-	Squ.draw();
-	Geometry::RectangleC Rec(5, 10, Color::console_red);
-	cout << "Площадь прямоугольника: " << Rec.get_space() << хы;
-	cout << "Периметр прямоугольника: " << Rec.get_perimeter() << хы;
-	Rec.draw();
-	Geometry::RegularTriangle Tre(18.5, Color::console_red);
-	cout << "Площадь правильного треугольника: " << Tre.get_space() << хы;
-	cout << "Периметр правильного треугольника: " << Tre.get_perimeter() << хы;
-	Tre.draw();
-	Geometry::Circle Cru(25, Color::console_red);
-	cout << "Площадь круга: " << Cru.get_space() << хы;
-	cout << "Длинна окружности: " << Cru.get_perimeter() << хы;
-	Cru.draw();
-#endif // SIMPLE_CREATING
-
-	
-#ifdef RANDOM_GENERATING
-	int l;
-	cout << "Сколько фигур создать? "; cin >> l;
-	Geometry::FlatShape** group;
-	group = new FlatShape * [l];
-	for (int i = 0; i < l; i++)
-	{
-		double rand1 = 4 + rand() % 30 * 0.12;
-		double rand2 = 4 + rand() % 30 * 0.12;
-		int k = rand() % 3;
-		switch (k)
-		{
-		case 0:group[i] = new Geometry::Circle(rand1, Color::console_red); break;
-		case 1:group[i] = new Geometry::RegularTriangle(rand1, Color::console_red); break;
-		case 2:group[i] = new Geometry::Rectangle(rand1, rand2, Color::console_red); break;
-		case 3:group[i] = new Geometry::Square(rand1, Color::console_red); break;
-		default:break;
-		}
-	}
-	for (int i = 0; i < l; i++)
-	{
-		group[i]->type_space(); cout << group[i]->get_space() << хы;
-		group[i]->type_perimeter(); cout << group[i]->get_perimeter() << хы;
-		group[i]->draw();
-		cout << хы;
-	}
-#endif // RANDOM_GENERATING
-
-
 	Geometry::Circle Cru(4, Color::pink);
 	Cru.type_space();cout << Cru.get_space() << хы;
 	Cru.type_perimeter(); cout << Cru.get_perimeter() << хы;
@@ -702,4 +662,64 @@ void main()
 	RTre.draw();
 	//cout << RTre.get_side() << " " << RTre.get_base_side() << " " << RTre.get_hypotenuse() << endl;
 	AnalogPause();
+#endif // SIMPLE_CREATING
+
+	
+#ifdef RANDOM_GENERATING
+	int l;
+	cout << "Сколько фигур создать? "; cin >> l;
+	Geometry::FlatShape** group;
+	group = new FlatShape * [l];
+	for (int i = 0; i < l; i++)
+	{
+		double rand1 = 4 + rand() % 30 * 0.12;
+		double rand2 = 4 + rand() % 30 * 0.12;
+		int k = rand() % 3;
+		switch (k)
+		{
+		case 0:group[i] = new Geometry::Circle(rand1, Color::console_red); break;
+		case 1:group[i] = new Geometry::RegularTriangle(rand1, Color::console_red); break;
+		case 2:group[i] = new Geometry::Rectangle(rand1, rand2, Color::console_red); break;
+		case 3:group[i] = new Geometry::Square(rand1, Color::console_red); break;
+		default:break;
+		}
+	}
+	for (int i = 0; i < l; i++)
+	{
+		group[i]->type_space(); cout << group[i]->get_space() << хы;
+		group[i]->type_perimeter(); cout << group[i]->get_perimeter() << хы;
+		group[i]->draw();
+		cout << хы;
+	}
+#endif // RANDOM_GENERATING
+
+#ifdef RANDOM_GENERATE
+	HWND hwnd = GetConsoleWindow();
+	HDC hdc = GetDC(hwnd);
+	int i = 0;
+	while (i < 200)
+	{
+		int red = rand() % 256;
+		int green = rand() % 256;
+		int blue = rand() % 256;
+		HBRUSH hBrush = CreateSolidBrush(RGB(red, green, blue));
+		HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+		HPEN hPen = CreatePen(PS_SOLID, 1, RGB(red, green, blue));	//тип отрисовки/толщина/цвет
+		HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
+		SelectObject(hdc, hPen);
+		Sleep(200);
+		double rand1 = 0 + rand() % 30;
+		double rand2 = 0 + rand() % 100;
+		int k = rand() % 20;
+		setCousorPosition(0, k);
+		::Ellipse(hdc, rand2, rand1 * 30, rand2 + (k * 2) / 0.258 * 10, rand1 * 30 + (k * 2) / 0.258 * 10);
+		Sleep(200);
+		i++;
+		system("CLS");
+		DeleteObject(hPen);
+		DeleteObject(hBrush);
+	}
+#endif // RANDOM_GENERATE
+
+		
 }

@@ -4,6 +4,7 @@
 #include<math.h>
 #include<string>
 #include<windows.h>
+#include<conio.h>
 using namespace std;
 using std::cin;
 using std::cout;
@@ -627,7 +628,7 @@ void main()
 	setlocale(LC_ALL, "rus");
 #ifdef SIMPLE_CREATING
 	Geometry::Circle Cru(4, Color::pink);
-	Cru.type_space();cout << Cru.get_space() << õû;
+	Cru.type_space(); cout << Cru.get_space() << õû;
 	Cru.type_perimeter(); cout << Cru.get_perimeter() << õû;
 	Cru.draw();
 	AnalogPause();
@@ -721,5 +722,16 @@ void main()
 	}
 #endif // RANDOM_GENERATE
 
-		
+	char key = 0;
+	while (key != ' ')
+	{
+		Geometry::Circle Cru(4, Color::pink);
+		Cru.type_space(); cout << Cru.get_space() << õû;
+		Cru.type_perimeter(); cout << Cru.get_perimeter() << õû;
+		Cru.draw();
+		Sleep(1);
+		system("CLS");
+		if (_kbhit())key = _getch();
+	}
+
 }

@@ -17,14 +17,50 @@ int getXcoord()
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info_x);
 	return info_x.dwCursorPosition.X;
 }
-
 int getYcoord()
 {
 	CONSOLE_SCREEN_BUFFER_INFO info_y;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info_y);
 	return info_y.dwCursorPosition.Y;
 }
+int getStringHeight()
+{
+	int width = 0;
+	int height = 0;
 
+	HANDLE hWndConsole;
+	if (hWndConsole = GetStdHandle(-12))
+	{
+		CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+		if (GetConsoleScreenBufferInfo(hWndConsole, &consoleInfo))
+		{
+			//widht = consoleInfo.srWindow.Right - consoleInfo.srWindow.Left + 1;
+			height = consoleInfo.srWindow.Bottom - consoleInfo.srWindow.Top + 1;
+			//printf("Widht: %d\n", widht);printf("Height: %d\n", height);
+		}
+		else printf("Error: %d\n", GetLastError());
+	}
+	else printf("Error: %d\n", GetLastError());
+	return height;
+}
+void FullScreenOn()
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD buffer = { 80,50 };
+	SetConsoleDisplayMode(hConsole, CONSOLE_FULLSCREEN, &buffer);
+	Sleep(100);
+}
+void AnalogPause()
+{
+	cout << "Press enter to continue!\n";
+	cin.ignore();
+}
+void setCousorPosition(int x,int y)
+{
+	COORD position = { x,y };
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(hConsole, position);
+}
 int pth(int x, int y)
 {
 	return (int)sqrt(pow(x, 2) + pow(y, 2));
@@ -32,15 +68,11 @@ int pth(int x, int y)
 
 enum class Color
 {
-	/*consol_gray = 0x88,console_blue = 0x99,console_green = 0xAA,console_red = 0xCC,console_white = 0xFF*/
-	consol_gray,console_blue,console_green,console_red,console_white,
-	red = 0x000000FF, green = 0x0000FF00, blue = 0x00FF0000,yellow = 0x0000FFFF
+	pink = 0x00AA00FF,grass = 0x0000F0C0,light_blue = 0x00FFFF00,sea_wave = 0x00AFAA0C,white = 0x00FFFFFF,
+	red = 0x000000FF, green = 0x0000FF00, blue = 0x00FF0000,yellow = 0x0000FFFF,grey = 0x00AAAAAA,orange = 0x000AAFFA,
+	sky = 0x00FFADAA
 };
 
-const char* console_color[] =
-{
-	"88","99","AA","CC","FF"
-};
 
 namespace Geometry
 {
@@ -60,11 +92,11 @@ namespace Geometry
 		FlatShape(Color color) :color(color)
 		{
 			this->color = color;
-			cout << "FSConstructor:\t" << this << хы;
+			//cout << "FSConstructor:\t" << this << хы;
 		}
 		virtual ~FlatShape()
 		{
-			cout << "FSDestructor:\t" << this << хы;
+			//cout << "FSDestructor:\t" << this << хы;
 		}
 
 		virtual double get_space()const = 0;
@@ -105,35 +137,18 @@ namespace Geometry
 		{
 			HWND hwnd = GetConsoleWindow();
 			HDC hdc = GetDC(hwnd);
-			/*HANDLE hWndConsole;
-			if (hWndConsole = GetStdHandle(-12))
-			{
-				CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-				if (GetConsoleScreenBufferInfo(hWndConsole, &consoleInfo))
-				{
-					int widht = consoleInfo.srWindow.Right - consoleInfo.srWindow.Left + 1;
-					int height = consoleInfo.srWindow.Bottom - consoleInfo.srWindow.Top + 1;
-					printf("Widht: %d\n", widht);
-					printf("Height: %d\n", height);
-				}
-				else
-					printf("Error: %d\n", GetLastError());
-			}
-			else
-				printf("Error: %d\n", GetLastError());*/
-
 			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
 			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
 			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);	//тип отрисовки/толщина/цвет
 			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
 			SelectObject(hdc, hPen);
-			int x = getXcoord();
-			int y = getYcoord();
-			::Ellipse(hdc, x, y * 30, x + (radius*2) / 0.258 * 10, y * 30 + (radius*2) / 0.258 * 10);
-
+			int x = getXcoord(); 
+			int y = getYcoord(); 
+			setCousorPosition(0,((y+((radius * 2) / 0.258*10)/ 30)*2));
+			Sleep(200);
+			::Ellipse(hdc, 0, y * 30, 0 + (radius*2) / 0.258 * 10, y * 30 + (radius*2) / 0.258 * 10);
 			DeleteObject(hPen);
 			DeleteObject(hBrush);
-
 			/*HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(hwnd, FOREGROUND_GREEN);
 			double r = int(radius - 1);
@@ -190,7 +205,7 @@ namespace Geometry
 		Polygons(Color color, int how_many_sides) :FlatShape(color)
 		{
 			set_number_of_sides(how_many_sides);
-			cout << "PConstructor1:\t" << this << хы;
+			//cout << "PConstructor1:\t" << this << хы;
 		}
 		~Polygons() {}
 	};
@@ -212,18 +227,18 @@ namespace Geometry
 
 		void set_width(double width)
 		{
+			if (width <= 0)width = 1;
 			this->width = width;
 		}
 
 		void set_length(double length)
 		{
+			if (length <= 0)length = 1;
 			this->length = length;
 		}
 
 		void set_side_rectangle(double width, double length)
 		{
-			if (width <= 0)width = 1;
-			if (length <= 0)length = 1;
 			vector<double> buffer{ width, length,width,length };
 			set_value_of_sides(buffer);
 		}
@@ -233,7 +248,7 @@ namespace Geometry
 			set_width(width);
 			set_length(length);
 			set_side_rectangle(width, length);
-			cout << "RConstructor1:\t" << this << хы;
+			//cout << "RConstructor1:\t" << this << хы;
 		}
 		~Rectangle() {}
 		double get_space()const
@@ -246,49 +261,18 @@ namespace Geometry
 		}
 		void draw()const 
 		{
-			/*HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hwnd, FOREGROUND_BLUE);*/
 			HWND hwnd = GetConsoleWindow();
 			HDC hdc = GetDC(hwnd);
-			//HDC hdc = GetDC(NULL);
-
-			//Узнать высоту и ширину строк
-			/*HANDLE hWndConsole;
-			if (hWndConsole = GetStdHandle(-12))
-			{
-				CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-				if (GetConsoleScreenBufferInfo(hWndConsole, &consoleInfo))
-				{
-					int widht = consoleInfo.srWindow.Right - consoleInfo.srWindow.Left + 1;
-					int height = consoleInfo.srWindow.Bottom - consoleInfo.srWindow.Top + 1;
-					printf("Widht: %d\n", widht);
-					printf("Height: %d\n", height);
-				}
-				else
-					printf("Error: %d\n", GetLastError());
-			}
-			else
-				printf("Error: %d\n", GetLastError());*/
-
-			//Узнаем где коретка
-			int x = getXcoord(); cout << x << endl;
-			int y = getYcoord(); cout << y << endl;
-			//cout << getXcoord() << endl; cout << getYcoord() << endl;
-			// 
-			//Разворачивание окна на fullscreen
-			HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-			COORD buffer = { 80,50 };
-			SetConsoleDisplayMode(hConsole, CONSOLE_FULLSCREEN, &buffer);
-			system("pause");
-
 			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
 			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
-			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);	//тип отрисовки/толщина/цвет
+			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);
 			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
 			SelectObject(hdc, hPen);
-
-			::Rectangle(hdc, x, y*30, x+width/0.258*10, y * 30+length/0.258*10);
-		
+			int x = getXcoord();
+			int y = getYcoord(); 
+			setCousorPosition(0, (y + ((width * 2) / 0.258 * 10) / 30)+2);
+			Sleep(200);
+			::Rectangle(hdc, 0, y*30, 0 + (length/0.258)* 10, y * 30 + (width/0.258) * 10);
 			DeleteObject(hPen);
 			DeleteObject(hBrush);
 			/*for (int i = 0; i < width; i++)
@@ -318,6 +302,10 @@ namespace Geometry
 		{
 			return get_number_of_sides(0);
 		}
+		void set_side(double side)
+		{
+			this->side = side;
+		}
 		void set_side_figure(double side, int number)
 		{
 			if (side <= 0) side = 1;
@@ -329,9 +317,9 @@ namespace Geometry
 
 		RegularFigure(double side, Color color, int how_many_sides) :Polygons(color, how_many_sides)
 		{
-			this->side = side;
+			set_side(side);
 			set_side_figure(side, how_many_sides);
-			cout << "RFConstructor1:\t" << this << хы;
+			//cout << "RFConstructor1:\t" << this << хы;
 		}
 		~RegularFigure() {}
 
@@ -348,7 +336,7 @@ namespace Geometry
 		{
 			this->side = side;
 			set_side_figure(side, how_many_sides);
-			cout << "SConstructor1:\t" << this << хы;
+			//cout << "SConstructor1:\t" << this << хы;
 		}
 		~Square() {}
 
@@ -358,16 +346,27 @@ namespace Geometry
 		}
 		void draw()const
 		{
-			HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hwnd, FOREGROUND_RED);
-			for (int i = 0; i < side; i++)
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
+			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);
+			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
+			SelectObject(hdc, hPen);
+			int x = getXcoord();
+			int y = getYcoord();
+			setCousorPosition(0, (y + ((side * 2) / 0.258 * 10) / 30) + 2);
+			Sleep(200);
+			::Rectangle(hdc, 0, y * 30, 0 + (side / 0.258) * 10, y * 30 + (side / 0.258) * 10);
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+			/*for (int i = 0; i < side; i++)
 			{
 				for (int j = 0; j < side; j++)
 				{
 					cout << "* ";
 				}cout << endl;
-			}
-			SetConsoleTextAttribute(hwnd, 15);
+			}*/
 		}
 		void type_space()const
 		{
@@ -386,7 +385,7 @@ namespace Geometry
 		{
 			this->side = side;
 			set_side_figure(side, how_many_sides);
-			cout << "RTConstructor1:\t" << this << хы;
+			//cout << "RTConstructor1:\t" << this << хы;
 		}
 		~RegularTriangle() {}
 		double get_space()const
@@ -395,9 +394,26 @@ namespace Geometry
 		}
 		void draw()const
 		{
-			HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hwnd, FOREGROUND_INTENSITY);
-			double k = 1;
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
+			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);
+			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
+			SelectObject(hdc, hPen);
+			int x = getXcoord();
+			int y = getYcoord();
+			//cout << getXcoord() << " " << getYcoord();
+			setCousorPosition(0, ( y + ((side*sqrt(3)/2) / 0.3)));
+			Sleep(200);
+			const int N = 3;
+			POINT Pt[N];
+			Pt[0].x = (side/2)/0.258*10;Pt[0].y = y*30;
+			Pt[1].x = 0;Pt[1].y = y * 30+(side*sqrt(3)/2)/0.258*10;
+			Pt[2].x = side/0.259*10;Pt[2].y = y * 30+(side * sqrt(3) / 2) / 0.258*10;
+			Polygon(hdc,Pt, N);
+			DeleteObject(hPen);DeleteObject(hBrush);
+			/*double k = 1;
 			for (double i = 0; i < side / 2; i += 0.5)
 			{
 				if ((int)side & 1)
@@ -413,8 +429,7 @@ namespace Geometry
 					for (double j = i + (int)k; j >= 0; j--)cout << "* ";
 				}k += 0.5;
 				cout << хы;
-			}
-			SetConsoleTextAttribute(hwnd, 15);
+			}*/
 		}
 		void type_space()const
 		{
@@ -425,7 +440,176 @@ namespace Geometry
 			cout << "Периметр правильного треугольника равен: ";
 		}
 	};
+	class IsoscalesTriangle :public Polygons
+	{
+		double equal_side;
+		double base;
+		double hight;
+	public:
+		double get_equal_side()const
+		{
+			return equal_side;
+		}
+		double get_base()const
+		{
+			return base;
+		}
+		double get_hight()const
+		{
+			return hight;
+		}
+		void set_equal_side(double equal_side)
+		{
+			if (equal_side * 2 <= base)equal_side = base / 2 + 1;
+			this->equal_side = equal_side;
+		}
+		void set_base(double base)
+		{
+			if (base <= 0)base = 1;
+			this->base = base;
+		}
+		void set_hight(double equal_side, double base)
+		{
+			this->hight = 0.5 * sqrt(4 * pow(equal_side, 2) - pow(base, 2));
+		}
+		void set_side_triangle(double equal_side, double base)
+		{
+			vector<double> buffer{ equal_side,equal_side, base };
+			set_value_of_sides(buffer);
+		}
+		IsoscalesTriangle(double equal_side, double base, Color color) :Polygons(color, 3)
+		{
+			set_base(base);
+			set_equal_side(equal_side);
+			set_side_triangle(equal_side, base);
+			set_hight(equal_side, base);
+			//cout << "ITConstructor1:\t" << this << хы;
+		}
+		~IsoscalesTriangle() {}
 
+		double get_space()const
+		{
+			return hight * (base / 2);
+		}
+		double get_perimeter()const
+		{
+			return accumulate(number_of_sides.begin(), number_of_sides.end(), 0.0);
+		}
+		void draw()const
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
+			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);
+			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
+			SelectObject(hdc, hPen);
+			int x = getXcoord();
+			int y = getYcoord();
+			setCousorPosition(0, (y*30 + hight / 0.258*10)/15);
+			Sleep(200);
+			const int N = 3;
+			POINT Pt[N];
+			Pt[0].x = (base / 2) / 0.258 * 10; Pt[0].y = y * 30;
+			Pt[1].x = 0; Pt[1].y = (y * 30 + hight / 0.258 * 10);
+			Pt[2].x = base / 0.259 * 10; Pt[2].y = (y * 30 + hight / 0.258 * 10);
+			Polygon(hdc, Pt, N);
+			DeleteObject(hPen); DeleteObject(hBrush);
+		}
+		void type_space()const
+		{
+			cout << "Площадь равнобедренного треугольника равна: ";
+		}
+		void type_perimeter()const
+		{
+			cout << "Периметр равнобедренного треугольника равен: ";
+		}
+	};
+	class RightTriangle :public Polygons
+	{
+		double side;
+		double base_side;
+		double hypotenuse;
+	public:
+		double get_side()const
+		{
+			return side;
+		}
+		double get_base_side()const
+		{
+			return base_side;
+		}
+		double get_hypotenuse()const
+		{
+			return hypotenuse;
+		}
+		void set_side(double side)
+		{
+			if (side <= 0)side = 1;
+			this->side = side;
+		}
+		void set_base_side(double base_side)
+		{
+			if (base_side <= 0)base_side = 1;
+			this->base_side = base_side;
+		}
+		void set_hypotenuse(double hypotenuse)
+		{
+			if (pow(hypotenuse, 2) != pow(base_side, 2) + pow(side, 2))hypotenuse = sqrt(pow(base_side, 2) + pow(side, 2));
+			this->hypotenuse = hypotenuse;
+		}
+		void set_side_triangle(double side, double base_side, double hypotenuse)
+		{
+			vector<double> buffer{ side,base_side,hypotenuse };
+			set_value_of_sides(buffer);
+		}
+		RightTriangle(double side, double base_side, double hypotenuse, Color color) :Polygons(color, 3)
+		{
+			set_side(side);
+			set_base_side(base_side);
+			set_hypotenuse(hypotenuse);
+			set_side_triangle(side, base_side, hypotenuse);
+			//cout << "ITConstructor1:\t" << this << хы;
+		}
+		~RightTriangle(){}
+		double get_space()const
+		{
+			return (side*base_side)/2;
+		}
+		double get_perimeter()const
+		{
+			return accumulate(number_of_sides.begin(), number_of_sides.end(), 0.0);
+		}
+		void draw()const
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HBRUSH hBrush = CreateSolidBrush((COLORREF)color);
+			HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+			HPEN hPen = CreatePen(PS_SOLID, 1, (COLORREF)color);
+			HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
+			SelectObject(hdc, hPen);
+			int x = getXcoord();
+			int y = getYcoord();
+			setCousorPosition(0, (y*30 + side / 0.258*10)/15);
+			Sleep(200);
+			const int N = 3;
+			POINT Pt[N];
+			Pt[0].x = 0; Pt[0].y = y*30;
+			Pt[1].x = 0; Pt[1].y = y*30 + side/0.258*10;
+			Pt[2].x = base_side/0.258*10; Pt[2].y = y * 30 + side / 0.258 * 10;
+			Polygon(hdc, Pt, N);
+			DeleteObject(hPen); DeleteObject(hBrush);
+		}
+		void type_space()const
+		{
+			cout << "Площадь прямоугольного треугольника равна: ";
+		}
+		void type_perimeter()const
+		{
+			cout << "Периметр прямоугольного треугольника равен: ";
+		}
+	};
 }
 //#define SIMPLE_CREATING
 //#define RANDOM_GENERATING
@@ -481,13 +665,41 @@ void main()
 	}
 #endif // RANDOM_GENERATING
 
-	/*Geometry::Rectangle Rec(5, 10, Color::yellow);
-	cout << "Площадь прямоугольника: " << Rec.get_space() << хы;
-	cout << "Периметр прямоугольника: " << Rec.get_perimeter() << хы;
-	Rec.draw();*/
 
-	Geometry::Circle Cru(4, Color::yellow);
-	cout << "Площадь круга: " << Cru.get_space() << хы;
-	cout << "Длинна окружности: " << Cru.get_perimeter() << хы;
+	Geometry::Circle Cru(4, Color::pink);
+	Cru.type_space();cout << Cru.get_space() << хы;
+	Cru.type_perimeter(); cout << Cru.get_perimeter() << хы;
 	Cru.draw();
+	AnalogPause();
+	system("CLS");
+	Geometry::Rectangle Rec(5, 8, Color::sky);
+	Rec.type_space(); cout << Rec.get_space() << хы;
+	Rec.type_perimeter(); cout << Rec.get_perimeter() << хы;
+	Rec.draw();
+	AnalogPause();
+	system("CLS");
+	Geometry::Square Squ(6, Color::grass);
+	Squ.type_space(); cout << Squ.get_space() << хы;
+	Squ.type_perimeter(); cout << Squ.get_perimeter() << хы;
+	Squ.draw();
+	AnalogPause();
+	system("CLS");
+	Geometry::RegularTriangle Tre(7, Color::light_blue);
+	Tre.type_space(); cout << Tre.get_space() << хы;
+	Tre.type_perimeter(); cout << Tre.get_perimeter() << хы;
+	Tre.draw();
+	AnalogPause();
+	system("CLS");
+	Geometry::IsoscalesTriangle IsTre(10,7, Color::sea_wave);
+	IsTre.type_space(); cout << IsTre.get_space() << хы;
+	IsTre.type_perimeter(); cout << IsTre.get_perimeter() << хы;
+	IsTre.draw();
+	AnalogPause();
+	system("CLS");
+	Geometry::RightTriangle RTre(12, 5, 13, Color::orange);	//Пифагоровы тройки (3, 4, 5)(5, 12, 13)(8, 15, 17)(7, 24, 25)(20, 21, 29)
+	RTre.type_space(); cout << RTre.get_space() << хы;
+	RTre.type_perimeter(); cout << RTre.get_perimeter() << хы;
+	RTre.draw();
+	//cout << RTre.get_side() << " " << RTre.get_base_side() << " " << RTre.get_hypotenuse() << endl;
+	AnalogPause();
 }

@@ -5,27 +5,29 @@ using namespace std;
 
 bool finish = false;
 
-void Hello()
+void thr1(int &a)
 {
 	while (!finish)
 	{
-		cout << "Hello";
-		Sleep(100);
+		a++;
+		cout << a << endl;
+		Sleep(400);
 	}
 }
-void World()
+void thr2()
 {
 	while (!finish)
 	{
-		cout << "World";
-		Sleep(100);
+		cout << "World" << endl;
+		Sleep(400);
 	}
 }
 
 void main()
 {
-	std::thread hello_thread(Hello);
-	std::thread world_thread(World);
+	int a = 0;
+	std::thread hello_thread(thr1,ref(a));
+	std::thread world_thread(thr2);
 
 	cin.get();
 	finish = true;

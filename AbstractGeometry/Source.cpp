@@ -5,6 +5,8 @@
 #include<string>
 #include<windows.h>
 #include<conio.h>
+
+
 using namespace std;
 using std::cin;
 using std::cout;
@@ -58,7 +60,7 @@ void AnalogPause()
 }
 void setCousorPosition(int x,int y)
 {
-	COORD position = { x,y };
+	COORD position = { (short int)x,(short int)y };
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsole, position);
 }
@@ -66,6 +68,43 @@ int pth(int x, int y)
 {
 	return (int)sqrt(pow(x, 2) + pow(y, 2));
 }
+void ClearScreen()
+{
+	HANDLE                     hStdOut;
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	DWORD                      count;
+	DWORD                      cellCount;
+	COORD                      homeCoords = { 0, 0 };
+
+	hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hStdOut == INVALID_HANDLE_VALUE) return;
+
+	/* Get the number of cells in the current buffer */
+	if (!GetConsoleScreenBufferInfo(hStdOut, &csbi)) return;
+	cellCount = csbi.dwSize.X * csbi.dwSize.Y;
+
+	/* Fill the entire buffer with spaces */
+	if (!FillConsoleOutputCharacter(
+		hStdOut,
+		(TCHAR)' ',
+		cellCount,
+		homeCoords,
+		&count
+	)) return;
+
+	/* Fill the entire buffer with the current colors and attributes */
+	if (!FillConsoleOutputAttribute(
+		hStdOut,
+		csbi.wAttributes,
+		cellCount,
+		homeCoords,
+		&count
+	)) return;
+
+	/* Move the cursor home */
+	SetConsoleCursorPosition(hStdOut, homeCoords);
+}
+
 
 enum class Color
 {
@@ -82,6 +121,26 @@ enum class Color
 	orange = 0x000AAFFA,
 	sky = 0x00FFADAA
 };
+
+int get_Color(int number) 
+{
+	switch (number)
+	{
+	case 0:return (int)Color::pink; break;
+	case 1:return (int)Color::grass; break;
+	case 2:return (int)Color::light_blue; break;
+	case 3:return (int)Color::sea_wave; break;
+	case 4:return (int)Color::white; break;
+	case 5:return (int)Color::red; break;
+	case 6:return (int)Color::green; break;
+	case 7:return (int)Color::blue; break;
+	case 8:return (int)Color::yellow; break;
+	case 9:return (int)Color::grey; break;
+	case 10:return (int)Color::orange; break;
+	case 11:return (int)Color::sky; break;
+	default:return 0; break;
+	}
+}
 
 
 namespace Geometry
@@ -154,9 +213,9 @@ namespace Geometry
 			SelectObject(hdc, hPen);
 			int x = getXcoord(); 
 			int y = getYcoord(); 
-			setCousorPosition(0,((y+((radius * 2) / 0.258*10)/ 30)*2));
+			setCousorPosition(0,int((y+((radius * 2) / 0.258*10)/ 30)*2));
 			Sleep(200);
-			::Ellipse(hdc, 0, y * 30, 0 + (radius*2) / 0.258 * 10, y * 30 + (radius*2) / 0.258 * 10);
+			::Ellipse(hdc, 0, y * 30, int(0 + (radius*2) / 0.258 * 10), int(y * 30 + (radius*2) / 0.258 * 10));
 			DeleteObject(hPen);
 			DeleteObject(hBrush);
 			/*HANDLE hwnd = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -206,7 +265,7 @@ namespace Geometry
 
 		void set_value_of_sides(vector<double> numbers)
 		{
-			for (int i = 0; i < size(numbers); i++)
+			for (int i = 0; i < int(size(numbers)); i++)
 			{
 				this->number_of_sides[i] = numbers[i];
 			}
@@ -279,9 +338,9 @@ namespace Geometry
 			SelectObject(hdc, hPen);
 			int x = getXcoord();
 			int y = getYcoord(); 
-			setCousorPosition(0, (y + ((width * 2) / 0.258 * 10) / 30)+2);
+			setCousorPosition(0, int((y + ((width * 2) / 0.258 * 10) / 30)+2));
 			Sleep(200);
-			::Rectangle(hdc, 0, y*30, 0 + (length/0.258)* 10, y * 30 + (width/0.258) * 10);
+			::Rectangle(hdc, 0, y*30, int(0 + (length/0.258)* 10), int(y * 30 + (width/0.258) * 10));
 			DeleteObject(hPen);
 			DeleteObject(hBrush);
 			/*for (int i = 0; i < width; i++)
@@ -364,9 +423,9 @@ namespace Geometry
 			SelectObject(hdc, hPen);
 			int x = getXcoord();
 			int y = getYcoord();
-			setCousorPosition(0, (y + ((side * 2) / 0.258 * 10) / 30) + 2);
+			setCousorPosition(0, int((y + ((side * 2) / 0.258 * 10) / 30) + 2));
 			Sleep(200);
-			::Rectangle(hdc, 0, y * 30, 0 + (side / 0.258) * 10, y * 30 + (side / 0.258) * 10);
+			::Rectangle(hdc, 0, y * 30, int(0 + (side / 0.258) * 10), int(y * 30 + (side / 0.258) * 10));
 			DeleteObject(hPen);
 			DeleteObject(hBrush);
 			/*for (int i = 0; i < side; i++)
@@ -413,13 +472,13 @@ namespace Geometry
 			int x = getXcoord();
 			int y = getYcoord();
 			//cout << getXcoord() << " " << getYcoord();
-			setCousorPosition(0, ( y + ((side*sqrt(3)/2) / 0.3)));
+			setCousorPosition(0,int( y + ((side*sqrt(3)/2) / 0.3)));
 			Sleep(200);
 			const int N = 3;
 			POINT Pt[N];
-			Pt[0].x = (side/2)/0.258*10;Pt[0].y = y*30;
-			Pt[1].x = 0;Pt[1].y = y * 30+(side*sqrt(3)/2)/0.258*10;
-			Pt[2].x = side/0.259*10;Pt[2].y = y * 30+(side * sqrt(3) / 2) / 0.258*10;
+			Pt[0].x = long((side/2)/0.258*10);Pt[0].y = long(y*30);
+			Pt[1].x = 0;Pt[1].y = long(y * 30+(side*sqrt(3)/2)/0.258*10);
+			Pt[2].x = long(side/0.259*10); Pt[2].y = long(y * 30+(side * sqrt(3) / 2) / 0.258*10);
 			Polygon(hdc,Pt, N);
 			DeleteObject(hPen);DeleteObject(hBrush);
 			/*double k = 1;
@@ -515,13 +574,13 @@ namespace Geometry
 			SelectObject(hdc, hPen);
 			int x = getXcoord();
 			int y = getYcoord();
-			setCousorPosition(0, (y*30 + hight / 0.258*10)/15);
+			setCousorPosition(0, int((static_cast<__int64>(y)*30 + hight / 0.258*10)/15));
 			Sleep(200);
 			const int N = 3;
 			POINT Pt[N];
-			Pt[0].x = (base / 2) / 0.258 * 10; Pt[0].y = y * 30;
-			Pt[1].x = 0; Pt[1].y = (y * 30 + hight / 0.258 * 10);
-			Pt[2].x = base / 0.259 * 10; Pt[2].y = (y * 30 + hight / 0.258 * 10);
+			Pt[0].x = long((base / 2) / 0.258 * 10); Pt[0].y = long(y * 30);
+			Pt[1].x = 0; Pt[1].y = long(y * 30 + hight / 0.258 * 10);
+			Pt[2].x = long(base / 0.259 * 10); Pt[2].y = long(y * 30 + hight / 0.258 * 10);
 			Polygon(hdc, Pt, N);
 			DeleteObject(hPen); DeleteObject(hBrush);
 		}
@@ -600,13 +659,13 @@ namespace Geometry
 			SelectObject(hdc, hPen);
 			int x = getXcoord();
 			int y = getYcoord();
-			setCousorPosition(0, (y * 30 + side / 0.258 * 10) / 15);
+			setCousorPosition(0, int((static_cast<__int64>(y)*30 + side / 0.258 * 10) / 15));
 			Sleep(200);
 			const int N = 3;
 			POINT Pt[N];
-			Pt[0].x = 0; Pt[0].y = y * 30;
-			Pt[1].x = 0; Pt[1].y = y * 30 + side / 0.258 * 10;
-			Pt[2].x = base_side / 0.258 * 10; Pt[2].y = y * 30 + side / 0.258 * 10;
+			Pt[0].x = 0; Pt[0].y = long(y * 30);
+			Pt[1].x = 0; Pt[1].y = long(y * 30 + side / 0.258 * 10);
+			Pt[2].x = long(base_side / 0.258 * 10); Pt[2].y = long(y * 30 + side / 0.258 * 10);
 			Polygon(hdc, Pt, N);
 			DeleteObject(hPen); DeleteObject(hBrush);
 		}
@@ -620,9 +679,10 @@ namespace Geometry
 		}
 	};
 }
-#define SIMPLE_CREATING
-//#define RANDOM_GENERATING
-//#define RANDOM_GENERATE
+
+//#define SIMPLE_CREATING
+#define RANDOM_GENERATING
+
 void main()
 {
 	setlocale(LC_ALL, "rus");
@@ -665,23 +725,27 @@ void main()
 	AnalogPause();
 #endif // SIMPLE_CREATING
 
-	
 #ifdef RANDOM_GENERATING
 	int l;
 	cout << "Сколько фигур создать? "; cin >> l;
+	cin.get();
+	ClearScreen();
 	Geometry::FlatShape** group;
-	group = new FlatShape * [l];
+	group = new Geometry::FlatShape * [l];
 	for (int i = 0; i < l; i++)
 	{
 		double rand1 = 4 + rand() % 30 * 0.12;
 		double rand2 = 4 + rand() % 30 * 0.12;
-		int k = rand() % 3;
+		int rand3 = rand() % 12;
+		int k = rand() % 6;
 		switch (k)
 		{
-		case 0:group[i] = new Geometry::Circle(rand1, Color::console_red); break;
-		case 1:group[i] = new Geometry::RegularTriangle(rand1, Color::console_red); break;
-		case 2:group[i] = new Geometry::Rectangle(rand1, rand2, Color::console_red); break;
-		case 3:group[i] = new Geometry::Square(rand1, Color::console_red); break;
+		case 0:group[i] = new Geometry::Circle(rand1,(Color)get_Color(rand3)); break;
+		case 1:group[i] = new Geometry::RegularTriangle(rand1, (Color)get_Color(rand3)); break;
+		case 2:group[i] = new Geometry::Rectangle(rand1, rand2, (Color)get_Color(rand3)); break;
+		case 3:group[i] = new Geometry::Square(rand1, (Color)get_Color(rand3)); break;
+		case 4:group[i] = new Geometry::IsoscalesTriangle(rand1, rand2, (Color)get_Color(rand3)); break;
+		case 5:group[i] = new Geometry::RightTriangle(rand1, rand2, 1, (Color)get_Color(rand3)); break;
 		default:break;
 		}
 	}
@@ -690,48 +754,12 @@ void main()
 		group[i]->type_space(); cout << group[i]->get_space() << хы;
 		group[i]->type_perimeter(); cout << group[i]->get_perimeter() << хы;
 		group[i]->draw();
-		cout << хы;
+		AnalogPause();
+		ClearScreen();//system("CLS");
 	}
+	for (int i = 0; i < l; delete[] group[i], i++);
+	delete[] group;
+
 #endif // RANDOM_GENERATING
-
-#ifdef RANDOM_GENERATE
-	HWND hwnd = GetConsoleWindow();
-	HDC hdc = GetDC(hwnd);
-	int i = 0;
-	while (i < 200)
-	{
-		int red = rand() % 256;
-		int green = rand() % 256;
-		int blue = rand() % 256;
-		HBRUSH hBrush = CreateSolidBrush(RGB(red, green, blue));
-		HBRUSH hOldBrush = (HBRUSH)SelectObject(hdc, hBrush);
-		HPEN hPen = CreatePen(PS_SOLID, 1, RGB(red, green, blue));	//тип отрисовки/толщина/цвет
-		HPEN holdPen = (HPEN)SelectObject(hdc, hPen);
-		SelectObject(hdc, hPen);
-		Sleep(200);
-		double rand1 = 0 + rand() % 30;
-		double rand2 = 0 + rand() % 100;
-		int k = rand() % 20;
-		setCousorPosition(0, k);
-		::Ellipse(hdc, rand2, rand1 * 30, rand2 + (k * 2) / 0.258 * 10, rand1 * 30 + (k * 2) / 0.258 * 10);
-		Sleep(200);
-		i++;
-		system("CLS");
-		DeleteObject(hPen);
-		DeleteObject(hBrush);
-	}
-#endif // RANDOM_GENERATE
-
-	char key = 0;
-	while (key != ' ')
-	{
-		Geometry::Circle Cru(4, Color::pink);
-		Cru.type_space(); cout << Cru.get_space() << хы;
-		Cru.type_perimeter(); cout << Cru.get_perimeter() << хы;
-		Cru.draw();
-		Sleep(1);
-		system("CLS");
-		if (_kbhit())key = _getch();
-	}
 
 }
